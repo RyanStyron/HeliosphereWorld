@@ -1,0 +1,9 @@
+name: HS-World
+version: 1.0
+author: RySty
+main: mc.rysty.heliosphereworld.HelioSphereWorld
+
+commands:
+  spawn:
+  hub:
+  pvptoggle:

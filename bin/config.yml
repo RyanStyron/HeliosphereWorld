@@ -1,0 +1,23 @@
+console_error_message: "&b&l>>&7 &cThis command can only be ran by players"
+player_offline_message: "&b&l>>&7 &cCould not find the specified player"
+too_many_args_error: "&b&l>>&7 &cToo many arguments were provided"
+console_player_error_message: "&b&l>>&7 &cYou can only specify an online player"
+no_perm_message: "&b&l>>&7 &cYou do not have permission to do this"
+
+teleported_world_message: "&b&l>>&7 &7Warping to <world>..."
+teleported_spawn_message: "&b&l>>&7 &7Warping to <world>&7's Spawn..."
+world_command_error: "&b&l>>&7 &cThis command can not be executed in <world>"
+
+Spawn:
+  no_block_modify: "&b&l>>&7 &cYou cannot modify blocks in this gamemode"
+  
+SurvivalWorld:
+  no_gamemode_change: "&b&l>>&7 &cYou cannot modify your gamemode in this world"
+  
+ClassicSurvival:
+  world_error: "&b&l>>&7 &cThis command can only be executed in Classic Survival"
+  pvp_toggle_enabled: "&b&l>>&7 You have enabled personal PvP in this world!"
+  pvp_toggle_disabled: "&b&l>>&7 You have disabled personal PvP in this world!"
+  damager_pvp_error: "&b&l>>&7 &cThis player has PvP disabled in this world!"
+  player_pvp_error: "&b&l>>&7 &cYou can not damage players in this world because you have PvP disabled!"
+  
