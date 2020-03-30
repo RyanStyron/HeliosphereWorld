@@ -38,17 +38,17 @@ public class PvPToggle implements CommandExecutor, Listener {
 						String worldName = player.getWorld().getName();
 						UUID uuid = player.getUniqueId();
 
-						if (worldName.equalsIgnoreCase("ClassicSurvival")) {
-							if (data.getString("players." + uuid + ".classicSurvival.pvpDisabled") == "true") {
-								data.set("players." + uuid + ".classicSurvival.pvpDisabled", null);
-								player.sendMessage(Utils.chat(config.getString("ClassicSurvival.pvp_toggle_enabled")));
-							} else if (data.getString("players." + uuid + ".classicSurvival.pvpDisabled") == null) {
-								data.set("players." + uuid + ".classicSurvival.pvpDisabled", "true");
-								player.sendMessage(Utils.chat(config.getString("ClassicSurvival.pvp_toggle_disabled")));
+						if (worldName.equalsIgnoreCase("ClassicSMP")) {
+							if (data.getString("players." + uuid + ".classicSMP.pvpDisabled") == "true") {
+								data.set("players." + uuid + ".classicSMP.pvpDisabled", null);
+								player.sendMessage(Utils.chat(config.getString("ClassicSMP.pvp_toggle_enabled")));
+							} else if (data.getString("players." + uuid + ".classicSMP.pvpDisabled") == null) {
+								data.set("players." + uuid + ".classicSMP.pvpDisabled", "true");
+								player.sendMessage(Utils.chat(config.getString("ClassicSMP.pvp_toggle_disabled")));
 							}
 							settings.saveData();
 						} else {
-							player.sendMessage(Utils.chat(config.getString("ClassicSurvival.world_error")));
+							player.sendMessage(Utils.chat(config.getString("ClassicSMP.world_error")));
 						}
 					} else {
 						player.sendMessage(Utils.chat(config.getString("too_many_args_error")));
@@ -68,31 +68,27 @@ public class PvPToggle implements CommandExecutor, Listener {
 		Entity entity = event.getEntity();
 		Entity damager = event.getDamager();
 
-		if (damager instanceof Player) {
-			if (entity instanceof Player) {
-				Player player = (Player) entity;
-				UUID uuid = player.getUniqueId();
-				String worldName = player.getWorld().getName();
+		if (entity instanceof Player) {
+			Player player = (Player) entity;
+			UUID uuid = player.getUniqueId();
+			String worldName = player.getWorld().getName();
 
-				if (worldName.equalsIgnoreCase("ClassicSurvival")) {
-					if (data.getString("players." + uuid + ".classicSurvival.pvpDisabled") == "true") {
-						event.setCancelled(true);
-						damager.sendMessage(Utils.chat(config.getString("ClassicSurvival.damager_pvp_error")));
-					}
+			if (worldName.equalsIgnoreCase("ClassicSMP")) {
+				if (data.getString("players." + uuid + ".classicSMP.pvpDisabled") == "true") {
+					event.setCancelled(true);
+					damager.sendMessage(Utils.chat(config.getString("ClassicSMP.damager_pvp_error")));
 				}
 			}
 		}
-		if (damager instanceof Player) {
-			if (entity instanceof Player) {
-				Player player = (Player) damager;
-				UUID uuid = player.getUniqueId();
-				String worldName = player.getWorld().getName();
+		if (entity instanceof Player) {
+			Player player = (Player) damager;
+			UUID uuid = player.getUniqueId();
+			String worldName = player.getWorld().getName();
 
-				if (worldName.equalsIgnoreCase("ClassicSurvival")) {
-					if (data.getString("players." + uuid + ".classicSurvival.pvpDisabled") == "true") {
-						event.setCancelled(true);
-						player.sendMessage(Utils.chat(config.getString("ClassicSurvival.player_pvp_error")));
-					}
+			if (worldName.equalsIgnoreCase("ClassicSMP")) {
+				if (data.getString("players." + uuid + ".classicSMP.pvpDisabled") == "true") {
+					event.setCancelled(true);
+					player.sendMessage(Utils.chat(config.getString("ClassicSMP.player_pvp_error")));
 				}
 			}
 		}

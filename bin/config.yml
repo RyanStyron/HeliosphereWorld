@@ -14,7 +14,7 @@ Spawn:
 SurvivalWorld:
   no_gamemode_change: "&b&l>>&7 &cYou cannot modify your gamemode in this world"
   
-ClassicSurvival:
+ClassicSMP:
   world_error: "&b&l>>&7 &cThis command can only be executed in Classic Survival"
   pvp_toggle_enabled: "&b&l>>&7 You have enabled personal PvP in this world!"
   pvp_toggle_disabled: "&b&l>>&7 You have disabled personal PvP in this world!"

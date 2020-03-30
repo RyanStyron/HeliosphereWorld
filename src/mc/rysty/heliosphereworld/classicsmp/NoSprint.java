@@ -18,7 +18,7 @@ public class NoSprint implements Listener {
 		World world = player.getWorld();
 		String worldName = world.getName();
 
-		if (worldName.equalsIgnoreCase("ClassicSurvival")) {
+		if (worldName.equalsIgnoreCase("ClassicSMP")) {
 			player.setFoodLevel(6);
 			player.setSprinting(false);
 		}
@@ -33,7 +33,7 @@ public class NoSprint implements Listener {
 	 * = event.getPlayer(); World world = player.getWorld(); String worldName =
 	 * world.getName(); GameMode gamemode = player.getGameMode();
 	 * 
-	 * if (worldName.equalsIgnoreCase("ClassicSurvival")) { if (gamemode !=
+	 * if (worldName.equalsIgnoreCase("ClassicSMP")) { if (gamemode !=
 	 * GameMode.CREATIVE) { if (player.isSprinting()) { player.setSprinting(false);
 	 * } } } }
 	 */
