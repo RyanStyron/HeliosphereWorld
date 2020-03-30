@@ -1,4 +1,4 @@
-package mc.rysty.heliosphereworld.classicsurvival;
+package mc.rysty.heliosphereworld.classicsmp;
 
 import java.util.UUID;
 
@@ -18,10 +18,10 @@ import mc.rysty.heliosphereworld.utils.Utils;
 
 public class PvPToggle implements CommandExecutor, Listener {
 
-	HelioSphereWorld plugin = HelioSphereWorld.getInstance();
-	FileConfiguration config = plugin.getConfig();
-	SettingsManager settings = SettingsManager.getInstance();
-	FileConfiguration data = settings.getData();
+	private HelioSphereWorld plugin = HelioSphereWorld.getInstance();
+	private FileConfiguration config = plugin.getConfig();
+	private SettingsManager settings = SettingsManager.getInstance();
+	private FileConfiguration data = settings.getData();
 
 	public PvPToggle(HelioSphereWorld plugin) {
 		plugin.getCommand("pvptoggle").setExecutor(this);

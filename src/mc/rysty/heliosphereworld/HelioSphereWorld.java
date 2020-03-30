@@ -4,10 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import mc.rysty.heliosphereworld.classicsurvival.MultiplayerSleep;
-import mc.rysty.heliosphereworld.classicsurvival.NoSprint;
-import mc.rysty.heliosphereworld.classicsurvival.PvPToggle;
-import mc.rysty.heliosphereworld.classicsurvival.SpawnBedMob;
+import mc.rysty.heliosphereworld.classicsmp.*;
 import mc.rysty.heliosphereworld.commands.HubCommand;
 import mc.rysty.heliosphereworld.commands.SpawnCommand;
 import mc.rysty.heliosphereworld.hub.HubNoBuild;

@@ -1,4 +1,4 @@
-package mc.rysty.heliosphereworld.classicsurvival;
+package mc.rysty.heliosphereworld.classicsmp;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -23,7 +23,7 @@ public class SpawnBedMob implements Listener {
 				double bedLocationY = location.getY() + 1;
 				double bedLocationZ = location.getZ();
 
-				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "spawnmob random_night_mob ClassicSurvival,"
+				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "spawnmob random_night_mob ClassicSMP,"
 						+ bedLocationX + "," + bedLocationY + "," + bedLocationZ);
 			}
 		}

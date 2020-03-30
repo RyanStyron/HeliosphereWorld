@@ -1,4 +1,4 @@
-package mc.rysty.heliosphereworld.classicsurvival;
+package mc.rysty.heliosphereworld.classicsmp;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -14,19 +14,19 @@ public class MultiplayerSleep implements Listener {
 	@EventHandler
 	public void onPlayerBedEnter(PlayerBedEnterEvent event) {
 		Player player = event.getPlayer();
-		World world = player.getWorld();
+		World playerWorld = player.getWorld();
 
-		if (Bukkit.getWorld("ClassicSurvival") != null) {
-			World classicSurvival = Bukkit.getWorld("ClassicSurvival");
+		if (Bukkit.getWorld("ClassicSMP") != null) {
+			World classicSurvival = Bukkit.getWorld("ClassicSMP");
 
-			if (world == classicSurvival) {
+			if (playerWorld == classicSurvival) {
 				for (Player classicSurvivalPlayers : Bukkit.getOnlinePlayers()) {
 					World classicSurvivalPlayersWorld = classicSurvivalPlayers.getWorld();
 					int playerSize = classicSurvival.getPlayers().size();
 
-					if (classicSurvivalPlayers.isSleeping()) {
+					if (classicSurvivalPlayers.isSleeping())
 						bedPlayers++;
-					}
+
 					if (classicSurvivalPlayersWorld == classicSurvival) {
 						/**
 						 * The integer playerSize is multiplied by 2 / 3 here because in Classic

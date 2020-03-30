@@ -1,4 +1,4 @@
-package mc.rysty.heliosphereworld.classicsurvival;
+package mc.rysty.heliosphereworld.classicsmp;
 
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -6,6 +6,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
+/**
+ * This class is currently not called in the HelioSphereWorld class because it
+ * is no longer needed.
+ */
 public class NoSprint implements Listener {
 
 	@EventHandler
