@@ -30,27 +30,26 @@ public class HelioSphereWorld extends JavaPlugin {
 	SettingsManager settings = SettingsManager.getInstance();
 
 	public void onEnable() {
-		// Setup
+		// Plugin setup.
 		plugin = this;
 		saveDefaultConfig();
 		settings.setup(this);
 
-		// General Commands
+		// General commands.
 		new SpawnCommand(this);
 		new HubCommand(this);
 
-		// General Events
+		// General events.
 		pm.registerEvents(new PlayerJoin(), this);
 		pm.registerEvents(new PlayerAttributes(), this);
 
-		// ClassicSurvival
+		// ClassicSMP-related commands and events.
 		new PvPToggle(this);
 		pm.registerEvents(new PvPToggle(this), this);
-		pm.registerEvents(new NoSprint(), this);
 		pm.registerEvents(new MultiplayerSleep(), this);
 		pm.registerEvents(new SpawnBedMob(), this);
 
-		// Hub
+		// Hub-related events.
 		pm.registerEvents(new HubInventory(), this);
 		pm.registerEvents(new HubNoBuild(), this);
 		pm.registerEvents(new HubNoDamage(), this);
