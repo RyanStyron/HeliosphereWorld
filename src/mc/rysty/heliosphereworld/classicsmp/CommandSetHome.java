@@ -40,11 +40,15 @@ public class CommandSetHome implements CommandExecutor {
                             double locationX = location.getX();
                             double locationY = location.getY();
                             double locationZ = location.getZ();
+                            float locationYaw = location.getYaw();
+                            float locationPitch = location.getPitch();
 
                             homesFile.set("players." + playerId + ".home.world", locationWorldName);
                             homesFile.set("players." + playerId + ".home.x", locationX);
                             homesFile.set("players." + playerId + ".home.y", locationY);
                             homesFile.set("players." + playerId + ".home.z", locationZ);
+                            homesFile.set("players." + playerId + ".home.yaw", locationYaw);
+                            homesFile.set("players." + playerId + ".home.pitch", locationPitch);
                             homesFileManager.saveData();
 
                             Utils.configStringMessage(sender, "SetHomeCommand.home-created-message");

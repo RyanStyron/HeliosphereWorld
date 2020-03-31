@@ -39,7 +39,11 @@ public class CommandHome implements CommandExecutor {
                             double homeX = homesFile.getDouble("players." + playerId + ".home.x");
                             double homeY = homesFile.getDouble("players." + playerId + ".home.y");
                             double homeZ = homesFile.getDouble("players." + playerId + ".home.z");
+                            float homeYaw = (float) homesFile.getDouble("players." + playerId + ".home.yaw");
+                            float homePitch = (float) homesFile.getDouble("players." + playerId + ".home.pitch");
                             Location homeLocation = new Location(Bukkit.getWorld(homeWorld), homeX, homeY, homeZ);
+                            homeLocation.setYaw(homeYaw);
+                            homeLocation.setPitch(homePitch);
 
                             Utils.configStringMessage(sender, "HomeCommand.home-teleport-message");
                             player.teleport(homeLocation);
