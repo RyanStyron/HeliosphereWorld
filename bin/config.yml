@@ -15,9 +15,23 @@ SurvivalWorld:
   no_gamemode_change: "&b&l>>&7 &cYou cannot modify your gamemode in this world"
   
 ClassicSMP:
-  world_error: "&b&l>>&7 &cThis command can only be executed in Classic Survival"
+  world-error: "&4&l(!)&c This command can only be executed in ClassicSMP!"
   pvp_toggle_enabled: "&b&l>>&7 You have enabled personal PvP in this world!"
   pvp_toggle_disabled: "&b&l>>&7 You have disabled personal PvP in this world!"
   damager_pvp_error: "&b&l>>&7 &cThis player has PvP disabled in this world!"
   player_pvp_error: "&b&l>>&7 &cYou can not damage players in this world because you have PvP disabled!"
-  
+
+HomeCommand:
+  argument-error: "&4&l(!)&c A valid amount of arguments must be provided! Usage: /home"
+  home-null-error: "&4&l(!)&c You do not have a home to teleport to! Create one using /sethome."
+  home-teleport-message: "&6&l(!)&e Teleporting home..."
+
+SetHomeCommand:
+  argument-error: "&4&l(!)&c A valid amount of arguments must be provided! Usage: /sethome"
+  home-exists-error: "&4&l(!)&c You already have an existing home. Use /deletehome before creating a new one."
+  home-created-message: "&6&l(!)&e Your home has been set to your current coordinates!"
+
+DeleteHomeCommand:
+  argument-error: "&4&l(!)&c A valid amount of arguments must be provided! Usage: /deletehome"
+  home-null-error: "&4&l(!)&c You do not have a home to delete! Create one using /sethome."
+  home-deleted-message: "&6&l(!)&e Your home has been deleted."

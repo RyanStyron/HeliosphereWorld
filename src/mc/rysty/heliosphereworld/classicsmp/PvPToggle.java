@@ -48,7 +48,7 @@ public class PvPToggle implements CommandExecutor, Listener {
 							}
 							settings.saveData();
 						} else {
-							player.sendMessage(Utils.chat(config.getString("ClassicSMP.world_error")));
+							player.sendMessage(Utils.chat(config.getString("ClassicSMP.world-error")));
 						}
 					} else {
 						player.sendMessage(Utils.chat(config.getString("too_many_args_error")));

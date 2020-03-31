@@ -7,3 +7,7 @@ commands:
   spawn:
   hub:
   pvptoggle:
+  home:
+  sethome:
+  deletehome:
+    aliases: [delhome]
