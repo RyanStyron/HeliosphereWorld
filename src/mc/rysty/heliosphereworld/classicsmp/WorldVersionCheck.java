@@ -14,9 +14,11 @@ public class WorldVersionCheck implements Listener {
     @EventHandler
     public void onWorldChange(PlayerChangedWorldEvent event) {
         Player player = event.getPlayer();
-
+        
         if (player.getWorld() == Bukkit.getWorld("ClassicSMP")) {
-            if (VersionUtils.getPlayerVersion(player) != VersionUtils.getLatest()) {
+            String serverVersion = VersionUtils.getServerVersion();
+
+            if (VersionUtils.isBefore(player, serverVersion, false)){
                 if (Bukkit.getWorld("Hub") != null)
                     player.teleport(Bukkit.getWorld("Hub").getSpawnLocation());
                 Utils.configStringMessage(player, "ClassicSMP.version-error");
