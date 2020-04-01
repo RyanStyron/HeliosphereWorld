@@ -80,7 +80,7 @@ public class PvPToggle implements CommandExecutor, Listener {
 				}
 			}
 		}
-		if (entity instanceof Player) {
+		if (damager instanceof Player) {
 			Player player = (Player) damager;
 			UUID uuid = player.getUniqueId();
 			String worldName = player.getWorld().getName();
