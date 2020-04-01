@@ -16,6 +16,7 @@ SurvivalWorld:
   
 ClassicSMP:
   world-error: "&4&l(!)&c This command can only be executed in ClassicSMP!"
+  version-error: "&4&l(!)&c You must be in the latest version to join this world."
   pvp_toggle_enabled: "&b&l>>&7 You have enabled personal PvP in this world!"
   pvp_toggle_disabled: "&b&l>>&7 You have disabled personal PvP in this world!"
   damager_pvp_error: "&b&l>>&7 &cThis player has PvP disabled in this world!"

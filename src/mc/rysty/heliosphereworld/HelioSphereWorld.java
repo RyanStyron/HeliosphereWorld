@@ -10,6 +10,7 @@ import mc.rysty.heliosphereworld.classicsmp.CommandSetHome;
 import mc.rysty.heliosphereworld.classicsmp.MultiplayerSleep;
 import mc.rysty.heliosphereworld.classicsmp.PvPToggle;
 import mc.rysty.heliosphereworld.classicsmp.SpawnBedMob;
+import mc.rysty.heliosphereworld.classicsmp.WorldVersionCheck;
 import mc.rysty.heliosphereworld.commands.HubCommand;
 import mc.rysty.heliosphereworld.commands.SpawnCommand;
 import mc.rysty.heliosphereworld.hub.HubNoBuild;
@@ -56,6 +57,7 @@ public class HelioSphereWorld extends JavaPlugin {
 		pm.registerEvents(new PvPToggle(this), this);
 		pm.registerEvents(new MultiplayerSleep(), this);
 		pm.registerEvents(new SpawnBedMob(), this);
+		pm.registerEvents(new WorldVersionCheck(), this);
 
 		// Hub-related events.
 		pm.registerEvents(new HubInventory(), this);
