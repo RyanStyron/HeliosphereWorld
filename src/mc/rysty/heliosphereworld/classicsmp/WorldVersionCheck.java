@@ -6,22 +6,27 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 
-import mc.rysty.heliosphereworld.utils.Utils;
+import mc.rysty.heliosphereworld.HelioSphereWorld;
+import mc.rysty.heliosphereworld.utils.MessageUtils;
 import mc.rysty.heliosphereworld.utils.VersionUtils;
 
 public class WorldVersionCheck implements Listener {
 
+    public WorldVersionCheck(HelioSphereWorld plugin) {
+		plugin.getServer().getPluginManager().registerEvents(this, plugin);
+	}
+
     @EventHandler
     public void onWorldChange(PlayerChangedWorldEvent event) {
         Player player = event.getPlayer();
-        
+
         if (player.getWorld() == Bukkit.getWorld("ClassicSMP")) {
             String serverVersion = VersionUtils.getServerVersion();
 
-            if (VersionUtils.isBefore(player, serverVersion, false)){
+            if (VersionUtils.isBefore(player, serverVersion, false)) {
                 if (Bukkit.getWorld("Hub") != null)
                     player.teleport(Bukkit.getWorld("Hub").getSpawnLocation());
-                Utils.configStringMessage(player, "ClassicSMP.version-error");
+                MessageUtils.configStringMessage(player, "ClassicSMP.version-error");
             }
         }
     }

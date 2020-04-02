@@ -7,7 +7,13 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerBedEnterEvent;
 
+import mc.rysty.heliosphereworld.HelioSphereWorld;
+
 public class SpawnBedMob implements Listener {
+
+	public SpawnBedMob(HelioSphereWorld plugin) {
+		plugin.getServer().getPluginManager().registerEvents(this, plugin);
+	}
 
 	@EventHandler
 	public void onPlayerBedEnter(PlayerBedEnterEvent event) {
@@ -15,7 +21,7 @@ public class SpawnBedMob implements Listener {
 		Location location = bed.getLocation();
 		String worldName = location.getWorld().getName();
 
-		if (worldName.equalsIgnoreCase("ClassicSurvival")) {
+		if (worldName.equalsIgnoreCase("ClassicSMP")) {
 			int lightLevel = bed.getLightLevel();
 
 			if (lightLevel < 8) {
@@ -23,7 +29,7 @@ public class SpawnBedMob implements Listener {
 				double bedLocationY = location.getY() + 1;
 				double bedLocationZ = location.getZ();
 
-				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "spawnmob random_night_mob ClassicSMP,"
+				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "mm m spawn -t random_night_mob ClassicSMP,"
 						+ bedLocationX + "," + bedLocationY + "," + bedLocationZ);
 			}
 		}

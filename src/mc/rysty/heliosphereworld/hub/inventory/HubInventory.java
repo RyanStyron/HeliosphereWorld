@@ -17,57 +17,63 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import mc.rysty.heliosphereworld.HelioSphereWorld;
+
 public class HubInventory implements Listener {
 
-	@EventHandler
-	public void onJoin(PlayerJoinEvent e) {
-		Player p = e.getPlayer();
-
-		hubInventorySet(p);
+	public HubInventory(HelioSphereWorld plugin) {
+		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
 
 	@EventHandler
-	public void onWorldChange(PlayerChangedWorldEvent e) {
-		Player p = e.getPlayer();
+	public void onJoin(PlayerJoinEvent event) {
+		Player player = event.getPlayer();
 
-		hubInventorySet(p);
+		hubInventorySet(player);
 	}
 
 	@EventHandler
-	public void onRespawn(PlayerRespawnEvent e) {
-		Player p = e.getPlayer();
+	public void onWorldChange(PlayerChangedWorldEvent event) {
+		Player player = event.getPlayer();
 
-		hubInventorySet(p);
+		hubInventorySet(player);
 	}
 
 	@EventHandler
-	public void onItemDrop(PlayerDropItemEvent e) {
-		Player p = e.getPlayer();
-		boolean hub = p.getLocation().getWorld().getName().equalsIgnoreCase("Hub");
-		boolean creative = p.getGameMode().equals(GameMode.CREATIVE);
+	public void onRespawn(PlayerRespawnEvent event) {
+		Player player = event.getPlayer();
+
+		hubInventorySet(player);
+	}
+
+	@EventHandler
+	public void onItemDrop(PlayerDropItemEvent event) {
+		Player player = event.getPlayer();
+		boolean hub = player.getLocation().getWorld().getName().equalsIgnoreCase("Hub");
+		boolean creative = player.getGameMode().equals(GameMode.CREATIVE);
 
 		if (hub && !creative) {
-			e.setCancelled(true);
+			event.setCancelled(true);
 		}
 	}
 
 	private void hubInventorySet(Player player) {
 		String worldName = player.getLocation().getWorld().getName();
-		ItemStack compass = new ItemStack(Material.COMPASS);
-		ItemMeta cData = compass.getItemMeta();
-		cData.addEnchant(Enchantment.DAMAGE_ALL, 50, false);
-		cData.setDisplayName("" + ChatColor.AQUA + "Main Menu");
-		ArrayList<String> cLore = new ArrayList<>();
-		cLore.add("");
-		cLore.add(ChatColor.GRAY + " > Click to open the " + ChatColor.DARK_AQUA + "Main Menu");
-		cData.setLore(cLore);
-		compass.setItemMeta(cData);
+		ItemStack item = new ItemStack(Material.COMPASS);
+		ItemMeta itemData = item.getItemMeta();
+		itemData.addEnchant(Enchantment.DAMAGE_ALL, 50, false);
+		itemData.setDisplayName("" + ChatColor.AQUA + "Main Menu");
+		ArrayList<String> itemLore = new ArrayList<>();
+		itemLore.add("");
+		itemLore.add(ChatColor.GRAY + " > Click to open the " + ChatColor.DARK_AQUA + "Main Menu");
+		itemData.setLore(itemLore);
+		item.setItemMeta(itemData);
 
 		if (worldName.equalsIgnoreCase("Hub")) {
 			PlayerInventory inv = player.getInventory();
 
 			inv.clear();
-			inv.setItem(0, compass);
+			inv.setItem(0, item);
 		}
 	}
 }

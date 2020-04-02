@@ -22,6 +22,9 @@ ClassicSMP:
   damager_pvp_error: "&b&l>>&7 &cThis player has PvP disabled in this world!"
   player_pvp_error: "&b&l>>&7 &cYou can not damage players in this world because you have PvP disabled!"
 
+PvPToggleCommand:
+  argument-error: "&4&l(!)&c A valid amount of arguments must be provided! Usage: /pvptoggle"
+
 HomeCommand:
   argument-error: "&4&l(!)&c A valid amount of arguments must be provided! Usage: /home"
   home-null-error: "&4&l(!)&c You do not have a home to teleport to! Create one using /sethome."

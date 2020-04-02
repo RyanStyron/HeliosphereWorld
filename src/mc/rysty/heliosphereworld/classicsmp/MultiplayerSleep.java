@@ -7,7 +7,13 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerBedEnterEvent;
 
+import mc.rysty.heliosphereworld.HelioSphereWorld;
+
 public class MultiplayerSleep implements Listener {
+
+	public MultiplayerSleep(HelioSphereWorld plugin) {
+		plugin.getServer().getPluginManager().registerEvents(this, plugin);
+	}
 
 	private int bedPlayers = 0;
 
@@ -17,24 +23,24 @@ public class MultiplayerSleep implements Listener {
 		World playerWorld = player.getWorld();
 
 		if (Bukkit.getWorld("ClassicSMP") != null) {
-			World classicSurvival = Bukkit.getWorld("ClassicSMP");
+			World classicsmp = Bukkit.getWorld("ClassicSMP");
 
-			if (playerWorld == classicSurvival) {
-				for (Player classicSurvivalPlayers : Bukkit.getOnlinePlayers()) {
-					World classicSurvivalPlayersWorld = classicSurvivalPlayers.getWorld();
-					int playerSize = classicSurvival.getPlayers().size();
+			if (playerWorld == classicsmp) {
+				for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+					World onlinePlayerWorld = onlinePlayer.getWorld();
+					int playerSize = classicsmp.getPlayers().size();
 
-					if (classicSurvivalPlayers.isSleeping())
+					if (onlinePlayer.isSleeping())
 						bedPlayers++;
 
-					if (classicSurvivalPlayersWorld == classicSurvival) {
+					if (onlinePlayerWorld == classicsmp) {
 						/**
-						 * The integer playerSize is multiplied by 2 / 3 here because in Classic
-						 * Survival, only two out of every three players are required to sleep in order
-						 * for it to become day.
+						 * The integer playerSize is multiplied by 2 / 3 here because in Classic SMP,
+						 * only two out of every three players are required to sleep in order for it to
+						 * become day.
 						 */
 						if (bedPlayers >= playerSize * 2 / 3) {
-							classicSurvival.setTime(600);
+							classicsmp.setTime(600);
 							bedPlayers = 0;
 						}
 					}

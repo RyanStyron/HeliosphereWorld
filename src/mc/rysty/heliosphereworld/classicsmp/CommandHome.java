@@ -12,13 +12,13 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import mc.rysty.heliosphereworld.HelioSphereWorld;
-import mc.rysty.heliosphereworld.utils.HomesFileManager;
-import mc.rysty.heliosphereworld.utils.Utils;
+import mc.rysty.heliosphereworld.utils.ClassicSMPFileManager;
+import mc.rysty.heliosphereworld.utils.MessageUtils;
 
 public class CommandHome implements CommandExecutor {
 
-    private HomesFileManager homesFileManager = HomesFileManager.getInstance();
-    private FileConfiguration homesFile = homesFileManager.getData();
+    private ClassicSMPFileManager classicsmpFileManager = ClassicSMPFileManager.getInstance();
+    private FileConfiguration classicsmpFile = classicsmpFileManager.getData();
 
     public CommandHome(HelioSphereWorld plugin) {
         plugin.getCommand("home").setExecutor(this);
@@ -34,27 +34,27 @@ public class CommandHome implements CommandExecutor {
 
                 if (playerWorld == Bukkit.getWorld("ClassicSMP")) {
                     if (args.length == 0) {
-                        if (homesFile.getString("players." + playerId + ".home") != null) {
-                            String homeWorld = homesFile.getString("players." + playerId + ".home.world");
-                            double homeX = homesFile.getDouble("players." + playerId + ".home.x");
-                            double homeY = homesFile.getDouble("players." + playerId + ".home.y");
-                            double homeZ = homesFile.getDouble("players." + playerId + ".home.z");
-                            float homeYaw = (float) homesFile.getDouble("players." + playerId + ".home.yaw");
-                            float homePitch = (float) homesFile.getDouble("players." + playerId + ".home.pitch");
+                        if (classicsmpFile.getString("players." + playerId + ".home") != null) {
+                            String homeWorld = classicsmpFile.getString("players." + playerId + ".home.world");
+                            double homeX = classicsmpFile.getDouble("players." + playerId + ".home.x");
+                            double homeY = classicsmpFile.getDouble("players." + playerId + ".home.y");
+                            double homeZ = classicsmpFile.getDouble("players." + playerId + ".home.z");
+                            float homeYaw = (float) classicsmpFile.getDouble("players." + playerId + ".home.yaw");
+                            float homePitch = (float) classicsmpFile.getDouble("players." + playerId + ".home.pitch");
                             Location homeLocation = new Location(Bukkit.getWorld(homeWorld), homeX, homeY, homeZ);
                             homeLocation.setYaw(homeYaw);
                             homeLocation.setPitch(homePitch);
 
-                            Utils.configStringMessage(sender, "HomeCommand.home-teleport-message");
+                            MessageUtils.configStringMessage(sender, "HomeCommand.home-teleport-message");
                             player.teleport(homeLocation);
                         } else
-                            Utils.configStringMessage(sender, "HomeCommand.home-null-error");
+                            MessageUtils.configStringMessage(sender, "HomeCommand.home-null-error");
                     } else
-                        Utils.configStringMessage(sender, "HomeCommand.argument-error");
+                        MessageUtils.configStringMessage(sender, "HomeCommand.argument-error");
                 } else
-                    Utils.configStringMessage(sender, "ClassicSMP.world-error");
+                    MessageUtils.configStringMessage(sender, "ClassicSMP.world-error");
             } else
-                Utils.consoleErrorMessage(sender);
+                MessageUtils.consoleError();
         }
         return false;
     }

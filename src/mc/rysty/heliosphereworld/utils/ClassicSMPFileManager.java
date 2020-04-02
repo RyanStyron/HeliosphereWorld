@@ -10,14 +10,14 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 
-public class HomesFileManager {
+public class ClassicSMPFileManager {
 
-    private HomesFileManager() {
+    private ClassicSMPFileManager() {
     }
 
-    static HomesFileManager instance = new HomesFileManager();
+    static ClassicSMPFileManager instance = new ClassicSMPFileManager();
 
-    public static HomesFileManager getInstance() {
+    public static ClassicSMPFileManager getInstance() {
         return instance;
     }
 
@@ -37,13 +37,13 @@ public class HomesFileManager {
             plugin.getDataFolder().mkdir();
         }
 
-        dataFile = new File(plugin.getDataFolder(), "homes.yml");
+        dataFile = new File(plugin.getDataFolder(), "classicsmp.yml");
 
         if (!dataFile.exists()) {
             try {
                 dataFile.createNewFile();
             } catch (IOException e) {
-                Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not create homes.yml!");
+                Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not create classicsmp.yml!");
             }
         }
 
@@ -58,7 +58,7 @@ public class HomesFileManager {
         try {
             data.save(dataFile);
         } catch (IOException e) {
-            Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save homes.yml!");
+            Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save classicsmp.yml!");
         }
     }
 

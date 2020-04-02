@@ -12,13 +12,13 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import mc.rysty.heliosphereworld.HelioSphereWorld;
-import mc.rysty.heliosphereworld.utils.HomesFileManager;
-import mc.rysty.heliosphereworld.utils.Utils;
+import mc.rysty.heliosphereworld.utils.ClassicSMPFileManager;
+import mc.rysty.heliosphereworld.utils.MessageUtils;
 
 public class CommandSetHome implements CommandExecutor {
 
-    private HomesFileManager homesFileManager = HomesFileManager.getInstance();
-    private FileConfiguration homesFile = homesFileManager.getData();
+    private ClassicSMPFileManager classicsmpFileManager = ClassicSMPFileManager.getInstance();
+    private FileConfiguration classicsmpFile = classicsmpFileManager.getData();
 
     public CommandSetHome(HelioSphereWorld plugin) {
         plugin.getCommand("sethome").setExecutor(this);
@@ -34,7 +34,7 @@ public class CommandSetHome implements CommandExecutor {
 
                 if (playerWorld == Bukkit.getWorld("ClassicSMP")) {
                     if (args.length == 0) {
-                        if (homesFile.getString("players." + playerId + ".home") == null) {
+                        if (classicsmpFile.getString("players." + playerId + ".home") == null) {
                             Location location = player.getLocation();
                             String locationWorldName = location.getWorld().getName();
                             double locationX = location.getX();
@@ -43,23 +43,23 @@ public class CommandSetHome implements CommandExecutor {
                             float locationYaw = location.getYaw();
                             float locationPitch = location.getPitch();
 
-                            homesFile.set("players." + playerId + ".home.world", locationWorldName);
-                            homesFile.set("players." + playerId + ".home.x", locationX);
-                            homesFile.set("players." + playerId + ".home.y", locationY);
-                            homesFile.set("players." + playerId + ".home.z", locationZ);
-                            homesFile.set("players." + playerId + ".home.yaw", locationYaw);
-                            homesFile.set("players." + playerId + ".home.pitch", locationPitch);
-                            homesFileManager.saveData();
+                            classicsmpFile.set("players." + playerId + ".home.world", locationWorldName);
+                            classicsmpFile.set("players." + playerId + ".home.x", locationX);
+                            classicsmpFile.set("players." + playerId + ".home.y", locationY);
+                            classicsmpFile.set("players." + playerId + ".home.z", locationZ);
+                            classicsmpFile.set("players." + playerId + ".home.yaw", locationYaw);
+                            classicsmpFile.set("players." + playerId + ".home.pitch", locationPitch);
+                            classicsmpFileManager.saveData();
 
-                            Utils.configStringMessage(sender, "SetHomeCommand.home-created-message");
+                            MessageUtils.configStringMessage(sender, "SetHomeCommand.home-created-message");
                         } else
-                            Utils.configStringMessage(sender, "SetHomeCommand.home-exists-error");
+                            MessageUtils.configStringMessage(sender, "SetHomeCommand.home-exists-error");
                     } else
-                        Utils.configStringMessage(sender, "SetHomeCommand.argument-error");
+                        MessageUtils.configStringMessage(sender, "SetHomeCommand.argument-error");
                 } else
-                    Utils.configStringMessage(sender, "ClassicSMP.world-error");
+                    MessageUtils.configStringMessage(sender, "ClassicSMP.world-error");
             } else
-                Utils.consoleErrorMessage(sender);
+                MessageUtils.consoleError();
         }
         return false;
     }

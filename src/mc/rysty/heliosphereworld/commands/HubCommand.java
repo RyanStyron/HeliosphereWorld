@@ -8,12 +8,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import mc.rysty.heliosphereworld.HelioSphereWorld;
-import mc.rysty.heliosphereworld.utils.Utils;
+import mc.rysty.heliosphereworld.utils.MessageUtils;
 import net.md_5.bungee.api.ChatColor;
 
 public class HubCommand implements CommandExecutor {
-
-	HelioSphereWorld plugin = HelioSphereWorld.getInstance();
 
 	public HubCommand(HelioSphereWorld plugin) {
 		plugin.getCommand("hub").setExecutor(this);
@@ -22,22 +20,15 @@ public class HubCommand implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("hub")) {
-			if (sender.hasPermission("hs.teleport.spawn")) {
-				if (Bukkit.getWorld("Hub") != null) {
-					Player p = (Player) sender;
-					Location hub = Bukkit.getWorld("Hub").getSpawnLocation();
-					String worldTpMessage = Utils.chat(plugin.getConfig().getString("teleported_world_message"));
+			if (Bukkit.getWorld("Hub") != null) {
+				Player player = (Player) sender;
+				Location hub = Bukkit.getWorld("Hub").getSpawnLocation();
 
-					p.teleport(hub);
-					p.sendMessage(worldTpMessage.replaceAll("<world>", "Hub"));
-				} else {
-					sender.sendMessage(ChatColor.RED + "This server does not have a registered Hub");
-				}
-			}
-		} else {
-
+				player.teleport(hub);
+				MessageUtils.configStringMessage(player, "teleported_world_message", "<world>", "Hub");
+			} else
+				MessageUtils.configStringMessage(sender, ChatColor.RED + "This server does not have a registered Hub.");
 		}
 		return false;
 	}
-
 }

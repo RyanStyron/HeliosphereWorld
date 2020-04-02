@@ -1,7 +1,5 @@
 package mc.rysty.heliosphereworld;
 
-import org.bukkit.Bukkit;
-import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import mc.rysty.heliosphereworld.classicsmp.CommandDeleteHome;
@@ -13,14 +11,12 @@ import mc.rysty.heliosphereworld.classicsmp.SpawnBedMob;
 import mc.rysty.heliosphereworld.classicsmp.WorldVersionCheck;
 import mc.rysty.heliosphereworld.commands.HubCommand;
 import mc.rysty.heliosphereworld.commands.SpawnCommand;
-import mc.rysty.heliosphereworld.hub.HubNoBuild;
-import mc.rysty.heliosphereworld.hub.HubNoDamage;
-import mc.rysty.heliosphereworld.hub.PlayerAttributes;
+import mc.rysty.heliosphereworld.hub.HubPreventDamage;
+import mc.rysty.heliosphereworld.hub.HubPreventModify;
 import mc.rysty.heliosphereworld.hub.PlayerJoin;
 import mc.rysty.heliosphereworld.hub.inventory.HubInventory;
 import mc.rysty.heliosphereworld.hub.inventory.HubInventoryMove;
-import mc.rysty.heliosphereworld.utils.HomesFileManager;
-import mc.rysty.heliosphereworld.utils.SettingsManager;
+import mc.rysty.heliosphereworld.utils.ClassicSMPFileManager;
 
 public class HelioSphereWorld extends JavaPlugin {
 
@@ -30,40 +26,33 @@ public class HelioSphereWorld extends JavaPlugin {
 		return plugin;
 	}
 
-	private PluginManager pluginManager = Bukkit.getPluginManager();
-	private SettingsManager settings = SettingsManager.getInstance();
-	private HomesFileManager homesFileManager = HomesFileManager.getInstance();
+	private ClassicSMPFileManager classicsmpFileManager = ClassicSMPFileManager.getInstance();
 
 	public void onEnable() {
 		// Plugin setup.
 		plugin = this;
 		saveDefaultConfig();
-		settings.setup(this);
-		homesFileManager.setup(this);
+		classicsmpFileManager.setup(this);
 
-		// General commands.
+		// General.
 		new SpawnCommand(this);
 		new HubCommand(this);
+		new PlayerJoin(this);
 
-		// General events.
-		pluginManager.registerEvents(new PlayerJoin(), this);
-		pluginManager.registerEvents(new PlayerAttributes(), this);
-
-		// ClassicSMP-related commands and events.
+		// ClassicSMP-related.
 		new CommandHome(this);
 		new CommandSetHome(this);
 		new CommandDeleteHome(this);
 		new PvPToggle(this);
-		pluginManager.registerEvents(new PvPToggle(this), this);
-		pluginManager.registerEvents(new MultiplayerSleep(), this);
-		pluginManager.registerEvents(new SpawnBedMob(), this);
-		pluginManager.registerEvents(new WorldVersionCheck(), this);
+		new MultiplayerSleep(this);
+		new SpawnBedMob(this);
+		new WorldVersionCheck(this);
 
 		// Hub-related events.
-		pluginManager.registerEvents(new HubInventory(), this);
-		pluginManager.registerEvents(new HubNoBuild(), this);
-		pluginManager.registerEvents(new HubNoDamage(), this);
-		pluginManager.registerEvents(new HubInventoryMove(), this);
+		new HubInventory(this);
+		new HubPreventModify(this);
+		new HubPreventDamage(this);
+		new HubInventoryMove(this);
 
 		System.out.println("HS-World enabled");
 	}
@@ -71,5 +60,4 @@ public class HelioSphereWorld extends JavaPlugin {
 	public void onDisable() {
 		System.out.println("HS-World disabled");
 	}
-
 }

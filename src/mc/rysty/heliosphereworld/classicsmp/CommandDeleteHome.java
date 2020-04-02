@@ -11,13 +11,13 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import mc.rysty.heliosphereworld.HelioSphereWorld;
-import mc.rysty.heliosphereworld.utils.HomesFileManager;
-import mc.rysty.heliosphereworld.utils.Utils;
+import mc.rysty.heliosphereworld.utils.ClassicSMPFileManager;
+import mc.rysty.heliosphereworld.utils.MessageUtils;
 
 public class CommandDeleteHome implements CommandExecutor {
 
-    private HomesFileManager homesFileManager = HomesFileManager.getInstance();
-    private FileConfiguration homesFile = homesFileManager.getData();
+    private ClassicSMPFileManager classicsmpFileManager = ClassicSMPFileManager.getInstance();
+    private FileConfiguration classicsmpFile = classicsmpFileManager.getData();
 
     public CommandDeleteHome(HelioSphereWorld plugin) {
         plugin.getCommand("deletehome").setExecutor(this);
@@ -33,19 +33,19 @@ public class CommandDeleteHome implements CommandExecutor {
 
                 if (playerWorld == Bukkit.getWorld("ClassicSMP")) {
                     if (args.length == 0) {
-                        if (homesFile.getString("players." + playerId + ".home") != null) {
-                            homesFile.set("players." + playerId + ".home", null);
-                            homesFileManager.saveData();
+                        if (classicsmpFile.getString("players." + playerId + ".home") != null) {
+                            classicsmpFile.set("players." + playerId + ".home", null);
+                            classicsmpFileManager.saveData();
 
-                            Utils.configStringMessage(sender, "DeleteHomeCommand.home-deleted-message");
+                            MessageUtils.configStringMessage(sender, "DeleteHomeCommand.home-deleted-message");
                         } else
-                            Utils.configStringMessage(sender, "DeleteHomeCommand.home-null-error");
+                            MessageUtils.configStringMessage(sender, "DeleteHomeCommand.home-null-error");
                     } else
-                        Utils.configStringMessage(sender, "DeleteHomeCommand.argument-error");
+                        MessageUtils.configStringMessage(sender, "DeleteHomeCommand.argument-error");
                 } else
-                    Utils.configStringMessage(sender, "ClassicSMP.world-error");
+                    MessageUtils.configStringMessage(sender, "ClassicSMP.world-error");
             } else
-                Utils.consoleErrorMessage(sender);
+                MessageUtils.consoleError();
         }
         return false;
     }
