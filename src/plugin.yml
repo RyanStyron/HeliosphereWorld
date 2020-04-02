@@ -11,3 +11,4 @@ commands:
   sethome:
   deletehome:
     aliases: [delhome]
+  back:

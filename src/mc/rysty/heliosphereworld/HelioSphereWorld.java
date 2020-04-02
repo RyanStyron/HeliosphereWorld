@@ -9,6 +9,7 @@ import mc.rysty.heliosphereworld.classicsmp.MultiplayerSleep;
 import mc.rysty.heliosphereworld.classicsmp.PvPToggle;
 import mc.rysty.heliosphereworld.classicsmp.SpawnBedMob;
 import mc.rysty.heliosphereworld.classicsmp.WorldVersionCheck;
+import mc.rysty.heliosphereworld.commands.BackCommand;
 import mc.rysty.heliosphereworld.commands.HubCommand;
 import mc.rysty.heliosphereworld.commands.SpawnCommand;
 import mc.rysty.heliosphereworld.hub.HubPreventDamage;
@@ -16,6 +17,7 @@ import mc.rysty.heliosphereworld.hub.HubPreventModify;
 import mc.rysty.heliosphereworld.hub.PlayerJoin;
 import mc.rysty.heliosphereworld.hub.inventory.HubInventory;
 import mc.rysty.heliosphereworld.hub.inventory.HubInventoryMove;
+import mc.rysty.heliosphereworld.utils.BackFileManager;
 import mc.rysty.heliosphereworld.utils.ClassicSMPFileManager;
 
 public class HelioSphereWorld extends JavaPlugin {
@@ -27,14 +29,17 @@ public class HelioSphereWorld extends JavaPlugin {
 	}
 
 	private ClassicSMPFileManager classicsmpFileManager = ClassicSMPFileManager.getInstance();
+	private BackFileManager backFileManager = BackFileManager.getInstance();
 
 	public void onEnable() {
 		// Plugin setup.
 		plugin = this;
 		saveDefaultConfig();
 		classicsmpFileManager.setup(this);
+		backFileManager.setup(this);
 
 		// General.
+		new BackCommand(this);
 		new SpawnCommand(this);
 		new HubCommand(this);
 		new PlayerJoin(this);
@@ -48,7 +53,7 @@ public class HelioSphereWorld extends JavaPlugin {
 		new SpawnBedMob(this);
 		new WorldVersionCheck(this);
 
-		// Hub-related events.
+		// Hub-related.
 		new HubInventory(this);
 		new HubPreventModify(this);
 		new HubPreventDamage(this);
