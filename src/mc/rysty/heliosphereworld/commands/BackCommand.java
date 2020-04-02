@@ -60,7 +60,7 @@ public class BackCommand implements CommandExecutor, Listener {
         float pitch = location.getPitch();
         float yaw = location.getYaw();
         String lastLocationString = "player." + playerId + ".lastlocation.";
-        
+
         backFile.set(lastLocationString + "world", world.getName());
         backFile.set(lastLocationString + "x", locationX);
         backFile.set(lastLocationString + "y", locationY);
