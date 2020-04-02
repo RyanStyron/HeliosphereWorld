@@ -37,10 +37,12 @@ public class PvPToggle implements CommandExecutor, Listener {
 					UUID uuid = player.getUniqueId();
 
 					if (worldName.equalsIgnoreCase("ClassicSMP")) {
-						if (classicsmpFile.getString("players." + uuid + ".pvpDisabled") == "true") {
+						String pvpDisabledString = classicsmpFile.getString("players." + uuid + ".pvpDisabled");
+
+						if (pvpDisabledString == "true") {
 							classicsmpFile.set("players." + uuid + ".pvpDisabled", null);
 							MessageUtils.configStringMessage(player, "ClassicSMP.pvp_toggle_enabled");
-						} else if (classicsmpFile.getString("players." + uuid + ".pvpDisabled") == null) {
+						} else if (pvpDisabledString == null) {
 							classicsmpFile.set("players." + uuid + ".pvpDisabled", "true");
 							MessageUtils.configStringMessage(player, "ClassicSMP.pvp_toggle_disabled");
 						}
