@@ -25,8 +25,12 @@ public class SpawnCommand implements CommandExecutor {
 			Location worldSpawn = playerWorld.getSpawnLocation();
 			String worldName = playerWorld.getName();
 
-			if (player.getLocation().distanceSquared(worldSpawn) > 225) {
-				player.teleport(worldSpawn);
+			if (player.getLocation().distanceSquared(worldSpawn) > 25) {
+				if (Bukkit.getPluginManager().getPlugin("Multiverse-Core").isEnabled())
+					Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
+							"multiverse-core:mvtp " + player.getName() + " " + worldName);
+				else
+					player.teleport(worldSpawn);
 
 				switch (worldName) {
 					case "Hub":
@@ -44,5 +48,4 @@ public class SpawnCommand implements CommandExecutor {
 		}
 		return false;
 	}
-
 }

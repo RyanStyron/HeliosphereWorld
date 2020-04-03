@@ -41,5 +41,6 @@ DeleteHomeCommand:
   home-deleted-message: "&6&l(!)&e Your home has been deleted."
 
 BackCommand:
+  argument-error: "&4&l(!)&c A valid amount of arguments must be provided! Usage: /back"
   back-error: "&6&l(!)&4 There was no previous location stored for you to be teleported to."
-  back-success-message: "&6&l(!)&e Teleported to your last location."
+  back-message: "&6&l(!)&e Teleported to your last location."
