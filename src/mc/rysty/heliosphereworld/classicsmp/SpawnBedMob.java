@@ -29,7 +29,7 @@ public class SpawnBedMob implements Listener {
 				double bedLocationY = location.getY() + 1;
 				double bedLocationZ = location.getZ();
 
-				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "mm m spawn -t random_night_mob " + worldName + ","
+				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "mm m spawn -t random_night_mob 1 " + worldName + ","
 						+ bedLocationX + "," + bedLocationY + "," + bedLocationZ);
 			}
 		}
