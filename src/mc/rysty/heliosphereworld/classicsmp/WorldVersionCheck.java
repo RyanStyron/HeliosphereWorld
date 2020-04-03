@@ -13,8 +13,8 @@ import mc.rysty.heliosphereworld.utils.VersionUtils;
 public class WorldVersionCheck implements Listener {
 
     public WorldVersionCheck(HelioSphereWorld plugin) {
-		plugin.getServer().getPluginManager().registerEvents(this, plugin);
-	}
+        plugin.getServer().getPluginManager().registerEvents(this, plugin);
+    }
 
     @EventHandler
     public void onWorldChange(PlayerChangedWorldEvent event) {
@@ -22,8 +22,9 @@ public class WorldVersionCheck implements Listener {
 
         if (player.getWorld() == Bukkit.getWorld("ClassicSMP")) {
             String serverVersion = VersionUtils.getServerVersion();
+            String playerVersion = VersionUtils.getPlayerVersion(player);
 
-            if (VersionUtils.isBefore(player, serverVersion, false)) {
+            if (!playerVersion.equals(serverVersion)) {
                 if (Bukkit.getWorld("Hub") != null)
                     player.teleport(Bukkit.getWorld("Hub").getSpawnLocation());
                 MessageUtils.configStringMessage(player, "ClassicSMP.version-error");

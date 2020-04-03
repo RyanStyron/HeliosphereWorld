@@ -1,26 +1,26 @@
-console_error_message: "&b&l>>&7 &cThis command can only be ran by players"
-player_offline_message: "&b&l>>&7 &cCould not find the specified player"
-too_many_args_error: "&b&l>>&7 &cToo many arguments were provided"
-console_player_error_message: "&b&l>>&7 &cYou can only specify an online player"
-no_perm_message: "&b&l>>&7 &cYou do not have permission to do this"
+console_error_message: "&4&l(!)&c This command can only be executed by players."
+player_offline_message: "&4&l(!)&c A valid player must be specified."
+too_many_args_error: "&4&l(!)&c Too many arguments were provided."
+console_player_error_message: "&4&l(!)&c You can only specify an online player."
+no_perm_message: "&4&l(!)&c You do not have permission to do this."
 
-teleported_world_message: "&b&l>>&7 &7Warping to <world>..."
-teleported_spawn_message: "&b&l>>&7 &7Warping to <world>&7's Spawn..."
-world_command_error: "&b&l>>&7 &cThis command can not be executed in <world>"
+teleported_world_message: "&6&l(!)&e Warping to &e&l<world>&e..."
+teleported_spawn_message: "&6&l(!)&e Warping to &e&l<world>&e's Spawn..."
+world_command_error: "&4&l(!)&c This command cannot be executed in &c&l<world>&c."
 
 Spawn:
-  no_block_modify: "&b&l>>&7 &cYou cannot modify blocks in this gamemode"
+  no_block_modify: "&4&l(!)&c You cannot modify blocks in this gamemode."
   
 SurvivalWorld:
-  no_gamemode_change: "&b&l>>&7 &cYou cannot modify your gamemode in this world"
+  no_gamemode_change: "&4&l(!)&c You cannot modify your gamemode in this world."
   
 ClassicSMP:
   world-error: "&4&l(!)&c This command can only be executed in ClassicSMP!"
   version-error: "&4&l(!)&c You must be in the latest version to join this world."
-  pvp_toggle_enabled: "&b&l>>&7 You have enabled personal PvP in this world!"
-  pvp_toggle_disabled: "&b&l>>&7 You have disabled personal PvP in this world!"
-  damager_pvp_error: "&b&l>>&7 &cThis player has PvP disabled in this world!"
-  player_pvp_error: "&b&l>>&7 &cYou can not damage players in this world because you have PvP disabled!"
+  pvp_toggle_enabled: "&6&l(!)&e You have enabled personal PvP in this world!"
+  pvp_toggle_disabled: "&6&l(!)&e You have disabled personal PvP in this world!"
+  damager_pvp_error: "&4&l(!)&c This player has PvP disabled in this world!"
+  player_pvp_error: "&4&l(!)&c You can not damage players in this world because you have PvP disabled!"
 
 PvPToggleCommand:
   argument-error: "&4&l(!)&c A valid amount of arguments must be provided! Usage: /pvptoggle"
@@ -42,5 +42,5 @@ DeleteHomeCommand:
 
 BackCommand:
   argument-error: "&4&l(!)&c A valid amount of arguments must be provided! Usage: /back"
-  back-error: "&6&l(!)&4 There was no previous location stored for you to be teleported to."
-  back-message: "&6&l(!)&e Teleported to your last location."
+  back-error: "&4&l(!)&c There was no previous location stored for you to be teleported to."
+  back-message: "&6&l(!)&e Teleporting to your last location..."

@@ -67,8 +67,11 @@ public class BackCommand implements CommandExecutor, Listener {
     @EventHandler
     public void onPlayerTeleport(PlayerTeleportEvent event) {
         Player player = event.getPlayer();
+        Location fromLocation = event.getFrom();
+        Location toLocation = event.getTo();
 
-        setLastLocation(player);
+        if (!(fromLocation.getWorld() == toLocation.getWorld() && fromLocation.distanceSquared(toLocation) <= 4))
+            setLastLocation(player);
     }
 
     @EventHandler
