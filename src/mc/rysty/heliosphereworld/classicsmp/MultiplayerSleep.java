@@ -15,64 +15,26 @@ public class MultiplayerSleep implements Listener {
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
 
-	private int bedPlayers = 0;
-
 	@EventHandler
 	public void onPlayerBedEnter(PlayerBedEnterEvent event) {
 		Player player = event.getPlayer();
 		World playerWorld = player.getWorld();
+		int totalPlayers = 0;
+		int spleepingPlayers = 0;
 
-		if (Bukkit.getWorld("ClassicSMP") != null) {
-			World classicsmp = Bukkit.getWorld("ClassicSMP");
+		if (playerWorld == Bukkit.getWorld("ClassicSMP")) {
+			for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+				if (onlinePlayer.getWorld() == playerWorld) {
+					totalPlayers++;
 
-			if (playerWorld == classicsmp) {
-				int playerSize = classicsmp.getPlayers().size();
-
-				bedPlayers++;
-
-				/**
-				 * The integer playerSize is multiplied by 2 / 3 here because in Classic SMP,
-				 * only two out of every three players are required to sleep in order for it to
-				 * become day.
-				 */
-				if (bedPlayers >= playerSize * 2 / 3) {
-					classicsmp.setTime(0);
-					bedPlayers = 0;
+					if (onlinePlayer.isSleeping())
+						spleepingPlayers++;
 				}
 			}
+			if (spleepingPlayers >= totalPlayers * 2 / 3)
+				playerWorld.setTime(23920);
 		}
+		totalPlayers = 0;
+		spleepingPlayers = 0;
 	}
-
-	// @EventHandler
-	// public void onPlayerBedEnter(PlayerBedEnterEvent event) {
-	// Player player = event.getPlayer();
-	// World playerWorld = player.getWorld();
-
-	// if (Bukkit.getWorld("ClassicSMP") != null) {
-	// World classicsmp = Bukkit.getWorld("ClassicSMP");
-
-	// if (playerWorld == classicsmp) {
-	// for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-	// World onlinePlayerWorld = onlinePlayer.getWorld();
-	// int playerSize = classicsmp.getPlayers().size();
-
-	// if (onlinePlayer.isSleeping())
-	// bedPlayers++;
-
-	// if (onlinePlayerWorld == classicsmp) {
-	// /**
-	// * The integer playerSize is multiplied by 2 / 3 here because in Classic SMP,
-	// * only two out of every three players are required to sleep in order for it
-	// to
-	// * become day.
-	// */
-	// if (bedPlayers >= playerSize * 2 / 3) {
-	// classicsmp.setTime(0);
-	// bedPlayers = 0;
-	// }
-	// }
-	// }
-	// }
-	// }
-	// }
 }
