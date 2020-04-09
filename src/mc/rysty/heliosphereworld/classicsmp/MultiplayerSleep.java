@@ -19,22 +19,16 @@ public class MultiplayerSleep implements Listener {
 	public void onPlayerBedEnter(PlayerBedEnterEvent event) {
 		Player player = event.getPlayer();
 		World playerWorld = player.getWorld();
-		int totalPlayers = 0;
-		int spleepingPlayers = 0;
+		int sleeping = 0;
 
-		if (playerWorld == Bukkit.getWorld("ClassicSMP")) {
-			for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-				if (onlinePlayer.getWorld() == playerWorld) {
-					totalPlayers++;
-
-					if (onlinePlayer.isSleeping())
-						spleepingPlayers++;
-				}
-			}
-			if (spleepingPlayers >= totalPlayers * 2 / 3)
-				playerWorld.setTime(23920);
+		for (Player online : playerWorld.getPlayers()) {
+			if (online.isSleeping())
+				sleeping++;
+			else
+				sleeping--;
 		}
-		totalPlayers = 0;
-		spleepingPlayers = 0;
+
+		if (sleeping > 0)
+			playerWorld.setTime(2300);
 	}
 }
