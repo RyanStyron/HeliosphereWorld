@@ -28,6 +28,6 @@ public class MultiplayerSleep implements Listener {
 		}
 
 		if (sleeping > 0)
-			playerWorld.setTime(2300);
+			playerWorld.setTime(23900);
 	}
 }
