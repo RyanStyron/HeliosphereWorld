@@ -10,7 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityDropItemEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
 
 import mc.rysty.heliosphereworld.HelioSphereWorld;
 
@@ -46,16 +46,12 @@ public class ListenerMoshpitSpawn implements Listener {
     }
 
     @EventHandler
-    public void onEntityDropItem(EntityDropItemEvent event) {
-        Entity entity = event.getEntity();
-        World world = entity.getWorld();
+    public void onPlayerDropItem(PlayerDropItemEvent event) {
+        Player player = event.getPlayer();
+        World world = player.getWorld();
 
         if (world.equals(Bukkit.getWorld("Moshpit")))
-            if (entity instanceof Player) {
-                Player player = (Player) entity;
-
-                if (player.getGameMode() != GameMode.CREATIVE)
-                    event.setCancelled(true);
-            }
+            if (player.getGameMode() != GameMode.CREATIVE)
+                event.setCancelled(true);
     }
 }
