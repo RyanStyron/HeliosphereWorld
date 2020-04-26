@@ -41,5 +41,4 @@ public class ListenerMoshpitSpawn implements Listener {
                     || damagerLocation.distanceSquared(world.getSpawnLocation()) <= 361)
                 event.setCancelled(true);
     }
-
 }
