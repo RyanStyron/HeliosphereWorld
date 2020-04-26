@@ -12,3 +12,4 @@ commands:
   deletehome:
     aliases: [delhome]
   back:
+  autoequip:

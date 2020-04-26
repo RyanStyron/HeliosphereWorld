@@ -34,4 +34,8 @@ public class MessageUtils {
 	public static void noPermissionError(CommandSender sender) {
 		configStringMessage(sender, "no_perm_error");
 	}
+
+	public static void validPlayerError(CommandSender sender) {
+		configStringMessage(sender, "player_offline_message");
+	}
 }

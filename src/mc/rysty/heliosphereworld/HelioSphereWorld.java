@@ -17,6 +17,7 @@ import mc.rysty.heliosphereworld.hub.HubPreventModify;
 import mc.rysty.heliosphereworld.hub.PlayerJoin;
 import mc.rysty.heliosphereworld.hub.inventory.HubInventory;
 import mc.rysty.heliosphereworld.hub.inventory.HubInventoryMove;
+import mc.rysty.heliosphereworld.moshpit.CommandAutoEquip;
 import mc.rysty.heliosphereworld.utils.BackFileManager;
 import mc.rysty.heliosphereworld.utils.ClassicSMPFileManager;
 
@@ -52,6 +53,9 @@ public class HelioSphereWorld extends JavaPlugin {
 		new MultiplayerSleep(this);
 		new SpawnBedMob(this);
 		new WorldVersionCheck(this);
+
+		// Moshpit-related.
+		new CommandAutoEquip(this);
 
 		// Hub-related.
 		new HubInventory(this);
