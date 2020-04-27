@@ -18,9 +18,12 @@ import mc.rysty.heliosphereworld.hub.PlayerJoin;
 import mc.rysty.heliosphereworld.hub.inventory.HubInventory;
 import mc.rysty.heliosphereworld.hub.inventory.HubInventoryMove;
 import mc.rysty.heliosphereworld.moshpit.CommandAutoEquip;
+import mc.rysty.heliosphereworld.moshpit.CommandMoshpitStats;
 import mc.rysty.heliosphereworld.moshpit.ListenerMoshpitSpawn;
+import mc.rysty.heliosphereworld.moshpit.ListenerMoshpitStats;
 import mc.rysty.heliosphereworld.utils.BackFileManager;
 import mc.rysty.heliosphereworld.utils.ClassicSMPFileManager;
+import mc.rysty.heliosphereworld.utils.MoshpitFileManager;
 
 public class HelioSphereWorld extends JavaPlugin {
 
@@ -30,8 +33,9 @@ public class HelioSphereWorld extends JavaPlugin {
 		return plugin;
 	}
 
-	private ClassicSMPFileManager classicsmpFileManager = ClassicSMPFileManager.getInstance();
-	private BackFileManager backFileManager = BackFileManager.getInstance();
+	public static ClassicSMPFileManager classicsmpFileManager = ClassicSMPFileManager.getInstance();
+	public static BackFileManager backFileManager = BackFileManager.getInstance();
+	public static MoshpitFileManager moshpitFileManager = MoshpitFileManager.getInstance();
 
 	public void onEnable() {
 		// Plugin setup.
@@ -39,6 +43,7 @@ public class HelioSphereWorld extends JavaPlugin {
 		saveDefaultConfig();
 		classicsmpFileManager.setup(this);
 		backFileManager.setup(this);
+		moshpitFileManager.setup(this);
 
 		// General.
 		new BackCommand(this);
@@ -58,6 +63,8 @@ public class HelioSphereWorld extends JavaPlugin {
 		// Moshpit-related.
 		new CommandAutoEquip(this);
 		new ListenerMoshpitSpawn(this);
+		new ListenerMoshpitStats(this);
+		new CommandMoshpitStats(this);
 
 		// Hub-related.
 		new HubInventory(this);
