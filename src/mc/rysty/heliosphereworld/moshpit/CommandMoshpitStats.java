@@ -7,6 +7,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import mc.rysty.heliosphereworld.HelioSphereWorld;
@@ -22,26 +23,35 @@ public class CommandMoshpitStats implements CommandExecutor {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("moshpitstats")) {
-            Player target = null;
+            if (!(sender instanceof Player && !((Entity) sender).getWorld().equals(Bukkit.getWorld("Moshpit")))) {
+                Player target = null;
 
-            if (args.length > 0)
-                target = Bukkit.getPlayer(args[0]);
-            else if (sender instanceof Player)
-                target = (Player) sender;
+                if (args.length > 0)
+                    target = Bukkit.getPlayer(args[0]);
+                else if (sender instanceof Player)
+                    target = (Player) sender;
 
-            if (target == null)
-                MessageUtils.validPlayerError(sender);
-            else {
-                UUID targetId = target.getUniqueId();
-                double kills = moshpitFile.getDouble("users." + targetId + ".kills");
-                double deaths = moshpitFile.getDouble("users." + targetId + ".deaths");
-                double kdr = moshpitFile.getDouble("users." + targetId + ".kdr");
+                if (target == null)
+                    MessageUtils.validPlayerError(sender);
+                else {
+                    UUID targetId = target.getUniqueId();
 
-                MessageUtils.message(sender, "&b-===-&3 Moshpit Stats:&f " + target.getDisplayName() + " &b-===-");
-                MessageUtils.message(sender, "&bKills:&f " + kills);
-                MessageUtils.message(sender, "&bDeaths:&f " + deaths);
-                MessageUtils.message(sender, "&bK/D ratio:&f " + kdr);
-            }
+                    if (moshpitFile.getString("users." + targetId + ".deaths") != null
+                            && moshpitFile.getString("users." + targetId + ".kills") != null) {
+                        double kills = moshpitFile.getDouble("users." + targetId + ".kills");
+                        double deaths = moshpitFile.getDouble("users." + targetId + ".deaths");
+                        double kdr = moshpitFile.getDouble("users." + targetId + ".kdr");
+
+                        MessageUtils.message(sender,
+                                "&b-===-&3 Moshpit Stats:&f " + target.getDisplayName() + " &b-===-");
+                        MessageUtils.message(sender, "&bKills:&f " + kills);
+                        MessageUtils.message(sender, "&bDeaths:&f " + deaths);
+                        MessageUtils.message(sender, "&bK/D ratio:&f " + kdr);
+                    }
+                }
+            } else
+                MessageUtils.configStringMessage(sender, "world_command_error", "<world>",
+                        ((Entity) sender).getWorld().getName());
         }
         return false;
     }

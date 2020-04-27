@@ -21,6 +21,7 @@ import mc.rysty.heliosphereworld.moshpit.CommandAutoEquip;
 import mc.rysty.heliosphereworld.moshpit.CommandMoshpitStats;
 import mc.rysty.heliosphereworld.moshpit.ListenerMoshpitSpawn;
 import mc.rysty.heliosphereworld.moshpit.ListenerMoshpitStats;
+import mc.rysty.heliosphereworld.moshpit.UpdateMoshpitYaml;
 import mc.rysty.heliosphereworld.utils.BackFileManager;
 import mc.rysty.heliosphereworld.utils.ClassicSMPFileManager;
 import mc.rysty.heliosphereworld.utils.MoshpitFileManager;
@@ -61,6 +62,7 @@ public class HelioSphereWorld extends JavaPlugin {
 		new WorldVersionCheck(this);
 
 		// Moshpit-related.
+		new UpdateMoshpitYaml(this);
 		new CommandAutoEquip(this);
 		new ListenerMoshpitSpawn(this);
 		new ListenerMoshpitStats(this);
