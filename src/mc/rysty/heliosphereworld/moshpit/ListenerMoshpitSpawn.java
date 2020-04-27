@@ -10,6 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.PotionSplashEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 
@@ -66,5 +67,16 @@ public class ListenerMoshpitSpawn implements Listener {
                 if (player.getGameMode() != GameMode.CREATIVE)
                     event.setCancelled(true);
         }
+    }
+
+    @EventHandler
+    public void onPlayerPotionThrow(PotionSplashEvent event) {
+        Entity entity = event.getEntity();
+        Location entityLocation = entity.getLocation();
+        World world = entityLocation.getWorld();
+
+        if (world.equals(Bukkit.getWorld("Moshpit")))
+            if (entityLocation.distanceSquared(world.getSpawnLocation()) <= 361)
+                event.setCancelled(true);
     }
 }
