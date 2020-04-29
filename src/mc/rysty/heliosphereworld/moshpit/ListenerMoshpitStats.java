@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 
 import mc.rysty.heliosphereworld.HelioSphereWorld;
 import mc.rysty.heliosphereworld.utils.MoshpitFileManager;
@@ -47,6 +48,20 @@ public class ListenerMoshpitStats implements Listener {
                         / moshpitFile.getDouble("users." + killerId + ".deaths"));
                 moshpitFileManager.saveData();
             }
+        }
+    }
+
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
+        UUID playerId = player.getUniqueId();
+
+        if (!player.hasPlayedBefore() && moshpitFile.getString("users." + playerId + ".displayname") == null) {
+            moshpitFile.set("users." + playerId + ".displayname", player.getDisplayName());
+            moshpitFile.set("users." + playerId + ".deaths", 0);
+            moshpitFile.set("users." + playerId + ".kills", 0);
+            moshpitFile.set("users." + playerId + ".kdr", 0);
+            moshpitFileManager.saveData();
         }
     }
 }
