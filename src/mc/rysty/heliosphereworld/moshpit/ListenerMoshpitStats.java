@@ -33,7 +33,10 @@ public class ListenerMoshpitStats implements Listener {
             if (player.getGameMode() != creative || killer.getGameMode() != creative) {
                 UUID playerId = player.getUniqueId();
                 UUID killerId = killer.getUniqueId();
+                String playerDisplayname = player.getDisplayName();
 
+                if (moshpitFile.getString("users." + playerId + ".displayname") != playerDisplayname)
+                    moshpitFile.set("users." + playerId + ".displayname", playerDisplayname);
                 moshpitFile.set("users." + playerId + ".deaths",
                         moshpitFile.getDouble("users." + playerId + ".deaths") + 1.0);
                 moshpitFile.set("users." + playerId + ".kdr", moshpitFile.getDouble("users." + playerId + ".kills")
