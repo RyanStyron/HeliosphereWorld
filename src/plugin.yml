@@ -14,3 +14,5 @@ commands:
   back:
   autoequip:
   moshpitstats:
+  moshpitleaderboard:
+    aliases: [moshpittop, moshpitlb]

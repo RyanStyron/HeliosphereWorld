@@ -18,10 +18,10 @@ import mc.rysty.heliosphereworld.hub.PlayerJoin;
 import mc.rysty.heliosphereworld.hub.inventory.HubInventory;
 import mc.rysty.heliosphereworld.hub.inventory.HubInventoryMove;
 import mc.rysty.heliosphereworld.moshpit.CommandAutoEquip;
+import mc.rysty.heliosphereworld.moshpit.CommandMoshpitLeaderboard;
 import mc.rysty.heliosphereworld.moshpit.CommandMoshpitStats;
 import mc.rysty.heliosphereworld.moshpit.ListenerMoshpitSpawn;
 import mc.rysty.heliosphereworld.moshpit.ListenerMoshpitStats;
-import mc.rysty.heliosphereworld.moshpit.UpdateMoshpitYaml;
 import mc.rysty.heliosphereworld.utils.BackFileManager;
 import mc.rysty.heliosphereworld.utils.ClassicSMPFileManager;
 import mc.rysty.heliosphereworld.utils.MoshpitFileManager;
@@ -62,11 +62,11 @@ public class HelioSphereWorld extends JavaPlugin {
 		new WorldVersionCheck(this);
 
 		// Moshpit-related.
-		new UpdateMoshpitYaml(this);
 		new CommandAutoEquip(this);
 		new ListenerMoshpitSpawn(this);
 		new ListenerMoshpitStats(this);
 		new CommandMoshpitStats(this);
+		new CommandMoshpitLeaderboard(this);
 
 		// Hub-related.
 		new HubInventory(this);

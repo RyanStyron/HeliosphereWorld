@@ -35,17 +35,19 @@ public class ListenerMoshpitStats implements Listener {
                 UUID playerId = player.getUniqueId();
                 UUID killerId = killer.getUniqueId();
                 String playerDisplayname = player.getDisplayName();
+                double playerKills = moshpitFile.getDouble("users." + playerId + ".kills");
+                double playerDeaths = moshpitFile.getDouble("users." + playerId + ".deaths");
+                double killerKills = moshpitFile.getDouble("users." + killerId + ".kills");
+                double killerDeaths = moshpitFile.getDouble("users." + killerId + ".deaths");
 
                 if (moshpitFile.getString("users." + playerId + ".displayname") != playerDisplayname)
                     moshpitFile.set("users." + playerId + ".displayname", playerDisplayname);
-                moshpitFile.set("users." + playerId + ".deaths",
-                        moshpitFile.getDouble("users." + playerId + ".deaths") + 1.0);
-                moshpitFile.set("users." + playerId + ".kdr", moshpitFile.getDouble("users." + playerId + ".kills")
-                        / moshpitFile.getDouble("users." + playerId + ".deaths"));
-                moshpitFile.set("users." + killerId + ".kills",
-                        moshpitFile.getDouble("users." + killerId + ".kills") + 1.0);
-                moshpitFile.set("users." + killerId + ".kdr", moshpitFile.getDouble("users." + killerId + ".kills")
-                        / moshpitFile.getDouble("users." + killerId + ".deaths"));
+                moshpitFile.set("users." + playerId + ".deaths", playerDeaths + 1.0);
+                moshpitFile.set("users." + playerId + ".kdr",
+                        playerDeaths != 0.0 ? playerKills / playerDeaths : playerKills);
+                moshpitFile.set("users." + killerId + ".kills", killerKills + 1.0);
+                moshpitFile.set("users." + killerId + ".kdr",
+                        killerDeaths != 0.0 ? killerKills / killerDeaths : killerKills);
                 moshpitFileManager.saveData();
             }
         }
