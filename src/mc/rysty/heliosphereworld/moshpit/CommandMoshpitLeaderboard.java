@@ -31,33 +31,31 @@ public class CommandMoshpitLeaderboard implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("moshpitleaderboard")) {
-            if (command.getName().equalsIgnoreCase("moshpitstats")) {
-                if (!(sender instanceof Player && !((Entity) sender).getWorld().equals(Bukkit.getWorld("Moshpit")))) {
-                    Map<String, Double> user = new HashMap<>();
+            if (!(sender instanceof Player && !((Entity) sender).getWorld().equals(Bukkit.getWorld("Moshpit")))) {
+                Map<String, Double> user = new HashMap<>();
 
-                    for (String storedUsers : moshpitFile.getConfigurationSection("users").getKeys(false)) {
-                        String storedDisplayname = moshpitFile.getString("users." + storedUsers + ".displayname");
-                        double storedScores = moshpitFile.getDouble("users." + storedUsers + ".kdr");
+                for (String storedUsers : moshpitFile.getConfigurationSection("users").getKeys(false)) {
+                    String storedDisplayname = moshpitFile.getString("users." + storedUsers + ".displayname");
+                    double storedScores = moshpitFile.getDouble("users." + storedUsers + ".kdr");
 
-                        user.put(storedDisplayname, storedScores);
+                    user.put(storedDisplayname, storedScores);
+                }
+                Set<Entry<String, Double>> set = user.entrySet();
+                List<Entry<String, Double>> list = new ArrayList<Entry<String, Double>>(set);
+
+                Collections.sort(list, new Comparator<Map.Entry<String, Double>>() {
+                    public int compare(Map.Entry<String, Double> entryOne, Map.Entry<String, Double> entryTwo) {
+                        return (entryOne.getValue()).compareTo(entryTwo.getValue());
                     }
-                    Set<Entry<String, Double>> set = user.entrySet();
-                    List<Entry<String, Double>> list = new ArrayList<Entry<String, Double>>(set);
+                });
 
-                    Collections.sort(list, new Comparator<Map.Entry<String, Double>>() {
-                        public int compare(Map.Entry<String, Double> entryOne, Map.Entry<String, Double> entryTwo) {
-                            return (entryOne.getValue()).compareTo(entryTwo.getValue());
-                        }
-                    });
-
-                    MessageUtils.message(sender, "&b-===-&3 Moshpit Leaderboard &b-===-");
-                    for (Map.Entry<String, Double> entry : user.entrySet()) {
-                        MessageUtils.message(sender, "&3" + entry.getKey() + "&b -- &3" + entry.getValue() + " KDR");
-                    }
-                } else
-                    MessageUtils.configStringMessage(sender, "world_command_error", "<world>",
-                            ((Entity) sender).getWorld().getName());
-            }
+                MessageUtils.message(sender, "&b-===-&3 Moshpit Leaderboard &b-===-");
+                for (Map.Entry<String, Double> entry : list) {
+                    MessageUtils.message(sender, "&3" + entry.getKey() + "&b -- &3" + entry.getValue() + " KDR");
+                }
+            } else
+                MessageUtils.configStringMessage(sender, "world_command_error", "<world>",
+                        ((Entity) sender).getWorld().getName());
         }
         return false;
     }
