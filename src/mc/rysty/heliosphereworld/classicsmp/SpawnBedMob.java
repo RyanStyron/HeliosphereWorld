@@ -21,7 +21,7 @@ public class SpawnBedMob implements Listener {
 		Location location = bed.getLocation();
 		String worldName = location.getWorld().getName();
 
-		if (worldName.equalsIgnoreCase("ClassicSMP")) {
+		if (worldName.equalsIgnoreCase("Tutorial")) {
 			int lightLevel = bed.getLightLevel();
 
 			if (lightLevel < 8) {

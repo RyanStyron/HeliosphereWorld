@@ -32,7 +32,7 @@ public class CommandHome implements CommandExecutor {
                 UUID playerId = player.getUniqueId();
                 World playerWorld = player.getWorld();
 
-                if (playerWorld == Bukkit.getWorld("ClassicSMP")) {
+                if (playerWorld == Bukkit.getWorld("Tutorial")) {
                     if (args.length == 0) {
                         if (classicsmpFile.getString("players." + playerId + ".home") != null) {
                             String homeWorld = classicsmpFile.getString("players." + playerId + ".home.world");

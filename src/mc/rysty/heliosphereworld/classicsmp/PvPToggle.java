@@ -36,7 +36,7 @@ public class PvPToggle implements CommandExecutor, Listener {
 					String worldName = player.getWorld().getName();
 					UUID uuid = player.getUniqueId();
 
-					if (worldName.equalsIgnoreCase("ClassicSMP")) {
+					if (worldName.equalsIgnoreCase("Tutorial")) {
 						String pvpDisabledString = classicsmpFile.getString("players." + uuid + ".pvpDisabled");
 
 						if (pvpDisabledString == "true") {
@@ -69,7 +69,7 @@ public class PvPToggle implements CommandExecutor, Listener {
 			UUID damagerId = playerDamager.getUniqueId();
 			String worldName = entity.getWorld().getName();
 
-			if (worldName.equalsIgnoreCase("ClassicSMP")) {
+			if (worldName.equalsIgnoreCase("Tutorial")) {
 				if (classicsmpFile.getString("players." + playerId + ".pvpDisabled") == "true") {
 					event.setCancelled(true);
 					MessageUtils.configStringMessage(playerDamager, "ClassicSMP.damager_pvp_error");

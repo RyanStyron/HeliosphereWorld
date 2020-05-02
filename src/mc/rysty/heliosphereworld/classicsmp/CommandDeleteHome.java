@@ -31,7 +31,7 @@ public class CommandDeleteHome implements CommandExecutor {
                 UUID playerId = player.getUniqueId();
                 World playerWorld = player.getWorld();
 
-                if (playerWorld == Bukkit.getWorld("ClassicSMP")) {
+                if (playerWorld == Bukkit.getWorld("Tutorial")) {
                     if (args.length == 0) {
                         if (classicsmpFile.getString("players." + playerId + ".home") != null) {
                             classicsmpFile.set("players." + playerId + ".home", null);

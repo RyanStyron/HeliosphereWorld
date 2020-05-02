@@ -20,7 +20,7 @@ public class WorldVersionCheck implements Listener {
     public void onWorldChange(PlayerChangedWorldEvent event) {
         Player player = event.getPlayer();
 
-        if (player.getWorld() == Bukkit.getWorld("ClassicSMP")) {
+        if (player.getWorld() == Bukkit.getWorld("Tutorial")) {
             String serverVersion = VersionUtils.getServerVersion();
             String playerVersion = VersionUtils.getPlayerVersion(player);
 
