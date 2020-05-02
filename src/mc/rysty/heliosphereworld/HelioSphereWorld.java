@@ -5,6 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import mc.rysty.heliosphereworld.classicsmp.CommandDeleteHome;
 import mc.rysty.heliosphereworld.classicsmp.CommandHome;
 import mc.rysty.heliosphereworld.classicsmp.CommandSetHome;
+import mc.rysty.heliosphereworld.classicsmp.ListenerClassicsmpWhitelist;
 import mc.rysty.heliosphereworld.classicsmp.MultiplayerSleep;
 import mc.rysty.heliosphereworld.classicsmp.PvPToggle;
 import mc.rysty.heliosphereworld.classicsmp.SpawnBedMob;
@@ -59,6 +60,7 @@ public class HelioSphereWorld extends JavaPlugin {
 		new MultiplayerSleep(this);
 		new SpawnBedMob(this);
 		new WorldVersionCheck(this);
+		new ListenerClassicsmpWhitelist(this);
 
 		// Moshpit-related.
 		new CommandAutoEquip(this);

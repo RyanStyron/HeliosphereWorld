@@ -15,6 +15,7 @@ SurvivalWorld:
   no_gamemode_change: "&4&l(!)&c You cannot modify your gamemode in this world."
   
 ClassicSMP:
+  whitelist-error: "&4&l(!)&c You must be whitelisted to join this world!"
   world-error: "&4&l(!)&c This command can only be executed in ClassicSMP!"
   version-error: "&4&l(!)&c You must be in the latest version to join this world."
   pvp_toggle_enabled: "&6&l(!)&e You have enabled personal PvP in this world!"
