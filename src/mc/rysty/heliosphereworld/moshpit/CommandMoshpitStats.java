@@ -21,6 +21,7 @@ public class CommandMoshpitStats implements CommandExecutor {
         plugin.getCommand("moshpitstats").setExecutor(this);
     }
 
+    @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("moshpitstats")) {
             if (!(sender instanceof Player && !((Entity) sender).getWorld().equals(Bukkit.getWorld("Moshpit")))) {

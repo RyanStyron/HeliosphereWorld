@@ -16,3 +16,4 @@ commands:
   moshpitstats:
   moshpitleaderboard:
     aliases: [moshpittop, moshpitlb]
+  moshpitsoup:
