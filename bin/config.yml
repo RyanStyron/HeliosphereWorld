@@ -41,6 +41,14 @@ DeleteHomeCommand:
   home-null-error: "&c&l(!)&f You do not have a home to delete! Create one using /sethome."
   home-deleted-message: "&a&l(!)&f Your home has been deleted."
 
+CommandWarp:
+  permission-error: "&c&l(!)&f You do not have permission to teleport to this warp."
+  warp-null-error: "&c&l(!)&f There is no set warp with the name provided."
+  warp-exists-error: "&c&l(!)&f A warp with this name already exists!"
+  warp-message: "&6&l(!)&f Teleporting to warp &b<warp>&f..."
+  warp-set-message: "&6&l(!)&f The warp been set to your current location."
+  warp-deleted-message: "&6&l(!)&f The warp &b<warp>&f has been deleted."
+
 BackCommand:
   argument-error: "&c&l(!)&f A valid amount of arguments must be provided! Usage: /back"
   back-error: "&c&l(!)&f There was no previous location stored for you to be teleported to."

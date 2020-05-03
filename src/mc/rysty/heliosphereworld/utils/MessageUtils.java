@@ -23,8 +23,13 @@ public class MessageUtils {
 		message(sender, config.getString(configString));
 	}
 
-	public static void configStringMessage(CommandSender sender, String configString, String regex, String replacement) {
+	public static void configStringMessage(CommandSender sender, String configString, String regex,
+			String replacement) {
 		message(sender, config.getString(configString).replaceAll(regex, replacement));
+	}
+
+	public static void argumentError(CommandSender sender, String usage) {
+		configStringMessage(sender, "argument-error", "<usage>", usage);
 	}
 
 	public static void consoleError() {

@@ -11,6 +11,10 @@ commands:
   sethome:
   deletehome:
     aliases: [delhome]
+  warp:
+  setwarp:
+  deletewarp:
+    aliases: [delwarp]
   back:
   autoequip:
   moshpitstats:
