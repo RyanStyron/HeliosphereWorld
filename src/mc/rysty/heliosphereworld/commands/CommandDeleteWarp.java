@@ -36,7 +36,7 @@ public class CommandDeleteWarp implements CommandExecutor, TabCompleter {
 
                         MessageUtils.configStringMessage(sender, "CommandWarp.warp-deleted-message", "<warp>", warp);
                     } else
-                        MessageUtils.configStringMessage(sender, "CommandWarp.warp-null-error", null, null);
+                        MessageUtils.configStringMessage(sender, "CommandWarp.warp-null-error");
                 } else
                     MessageUtils.argumentError(sender, "/deletewarp <warp>");
             } else
@@ -51,8 +51,12 @@ public class CommandDeleteWarp implements CommandExecutor, TabCompleter {
             List<String> warps = new ArrayList<>();
 
             if (warpFile.getConfigurationSection("warps") != null) {
-                for (String key : warpFile.getConfigurationSection("warps").getKeys(false))
+                for (String key : warpFile.getConfigurationSection("warps").getKeys(false)) {
                     warps.add(key);
+                    if (warpFile.getString("warps." + key + ".permission") != null)
+                        if (!sender.hasPermission(warpFile.getString("warps." + key + ".permission")))
+                            warps.remove(key);
+                }
                 return warps;
             }
         }

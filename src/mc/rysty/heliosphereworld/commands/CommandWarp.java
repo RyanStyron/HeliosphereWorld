@@ -37,7 +37,7 @@ public class CommandWarp implements CommandExecutor, TabCompleter {
                     if (warpFile.getString("warps." + warp) != null) {
                         if (warpFile.getString("warps." + warp + ".permission") != null)
                             if (!sender.hasPermission(warpFile.getString("warps." + warp + ".permission"))) {
-                                MessageUtils.configStringMessage(sender, "CommandWarp.permission-error", null, null);
+                                MessageUtils.configStringMessage(sender, "CommandWarp.permission-error");
                                 return false;
                             }
                         World world = Bukkit.getWorld(warpFile.getString("warps." + warp + ".location.world"));
@@ -54,7 +54,7 @@ public class CommandWarp implements CommandExecutor, TabCompleter {
                         player.teleport(warpLocation);
                         MessageUtils.configStringMessage(sender, "CommandWarp.warp-message", "<warp>", warp);
                     } else
-                        MessageUtils.configStringMessage(sender, "CommandWarp.warp-null-error", null, null);
+                        MessageUtils.configStringMessage(sender, "CommandWarp.warp-null-error");
                 } else
                     MessageUtils.argumentError(sender, "/warp <warp>");
             } else {
@@ -70,8 +70,12 @@ public class CommandWarp implements CommandExecutor, TabCompleter {
             List<String> warps = new ArrayList<>();
 
             if (warpFile.getConfigurationSection("warps") != null) {
-                for (String key : warpFile.getConfigurationSection("warps").getKeys(false))
+                for (String key : warpFile.getConfigurationSection("warps").getKeys(false)) {
                     warps.add(key);
+                    if (warpFile.getString("warps." + key + ".permission") != null)
+                        if (!sender.hasPermission(warpFile.getString("warps." + key + ".permission")))
+                            warps.remove(key);
+                }
                 return warps;
             }
         }

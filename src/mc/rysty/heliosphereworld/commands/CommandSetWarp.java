@@ -52,9 +52,9 @@ public class CommandSetWarp implements CommandExecutor {
                                 warpFile.set(warpFileString + ".permission", args[1].toLowerCase());
                             warpFileManager.saveData();
 
-                            MessageUtils.configStringMessage(sender, "CommandWarp.warp-set-message", null, null);
+                            MessageUtils.configStringMessage(sender, "CommandWarp.warp-set-message");
                         } else
-                            MessageUtils.configStringMessage(sender, "CommandWarp.warp-exists-error", null, null);
+                            MessageUtils.configStringMessage(sender, "CommandWarp.warp-exists-error");
                     } else
                         MessageUtils.argumentError(sender, "/setwarp <name> [permission]");
                 } else
