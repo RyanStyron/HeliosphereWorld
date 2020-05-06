@@ -24,6 +24,7 @@ import mc.rysty.heliosphereworld.hub.inventory.HubInventoryMove;
 import mc.rysty.heliosphereworld.moshpit.CommandAutoEquip;
 import mc.rysty.heliosphereworld.moshpit.CommandMoshpitSoup;
 import mc.rysty.heliosphereworld.moshpit.CommandMoshpitStats;
+import mc.rysty.heliosphereworld.moshpit.ListenerMoshpitKitSelect;
 import mc.rysty.heliosphereworld.moshpit.ListenerMoshpitSpawn;
 import mc.rysty.heliosphereworld.moshpit.ListenerMoshpitStats;
 import mc.rysty.heliosphereworld.utils.BackFileManager;
@@ -79,6 +80,7 @@ public class HelioSphereWorld extends JavaPlugin {
 		new ListenerMoshpitStats(this);
 		new CommandMoshpitStats(this);
 		// new CommandMoshpitLeaderboard(this);
+		new ListenerMoshpitKitSelect(this);
 
 		// Hub-related.
 		new HubInventory(this);

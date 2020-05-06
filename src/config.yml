@@ -3,6 +3,7 @@ player_offline_message: "&c&l(!)&f A valid player must be specified."
 too_many_args_error: "&c&l(!)&f Too many arguments were provided."
 console_player_error_message: "&c&l(!)&f You can only specify an online player."
 no_perm_message: "&c&l(!)&f You do not have permission to do this."
+argument-error: "&c&l(!)&f A valid amount of arguments must be provided. Usage: <usage>"
 
 teleported_world_message: "&6&l(!)&f Warping to &b<world>&f..."
 teleported_spawn_message: "&6&l(!)&f Warping to &b<world>&f's Spawn..."
@@ -13,6 +14,9 @@ Spawn:
   
 SurvivalWorld:
   no_gamemode_change: "&c&l(!)&f You cannot modify your gamemode in this world."
+
+Moshpit:
+  kit-error: "&c&l(!)&f You need &b<kills>&f more kills to use this kit!"
   
 ClassicSMP:
   whitelist-error: "&c&l(!)&f You must be whitelisted to join this world!"
