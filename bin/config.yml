@@ -17,6 +17,7 @@ SurvivalWorld:
 
 Moshpit:
   kit-error: "&c&l(!)&f You need &b<kills>&f more kills to use this kit!"
+  item-error: "&c&l(!)&f You need &b<kills>&f more kills to use this item!"
   
 ClassicSMP:
   whitelist-error: "&c&l(!)&f You must be whitelisted to join this world!"

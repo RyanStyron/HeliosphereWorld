@@ -57,8 +57,8 @@ public class ListenerMoshpitKitSelect implements Listener {
                     event.setCancelled(true);
                 }
             } else if (command.startsWith("/pufferfish-equip")) {
-                if (kills < 3500) {
-                    MessageUtils.configStringMessage(player, "Moshpit.kit-error", "<kills>", "" + (3500 - kills));
+                if (kills < 2500) {
+                    MessageUtils.configStringMessage(player, "Moshpit.item-error", "<kills>", "" + (2500 - kills));
                     event.setCancelled(true);
                 }
             }
