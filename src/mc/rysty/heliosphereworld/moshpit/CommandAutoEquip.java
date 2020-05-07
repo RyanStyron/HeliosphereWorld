@@ -31,15 +31,15 @@ public class CommandAutoEquip implements CommandExecutor {
                 if (target == null)
                     MessageUtils.validPlayerError(sender);
                 else {
-                	String worldName = target.getWorld().getName();
-                	
+                    String worldName = target.getWorld().getName();
+
                     if (worldName.equalsIgnoreCase("Moshpit")) {
                         PlayerInventory inventory = target.getInventory();
 
-                        ItemStack helmet = inventory.getItem(5);
-                        ItemStack chestplate = inventory.getItem(4);
-                        ItemStack leggings = inventory.getItem(3);
-                        ItemStack boots = inventory.getItem(2);
+                        ItemStack helmet = inventory.getItem(12);
+                        ItemStack chestplate = inventory.getItem(11);
+                        ItemStack leggings = inventory.getItem(10);
+                        ItemStack boots = inventory.getItem(9);
                         ItemStack[] newArmorContents = { helmet, chestplate, leggings, boots };
 
                         inventory.setArmorContents(newArmorContents);
