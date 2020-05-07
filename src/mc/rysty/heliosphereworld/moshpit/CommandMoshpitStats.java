@@ -45,8 +45,8 @@ public class CommandMoshpitStats implements CommandExecutor {
 
                         MessageUtils.message(sender,
                                 "&b-===-&3 Moshpit Stats:&f " + target.getDisplayName() + " &b-===-");
-                        MessageUtils.message(sender, "&bKills:&f " + kills);
-                        MessageUtils.message(sender, "&bDeaths:&f " + deaths);
+                        MessageUtils.message(sender, "&bKills:&f " + Math.round(kills * 1) / 1);
+                        MessageUtils.message(sender, "&bDeaths:&f " + Math.round(deaths * 1) / 1);
                         MessageUtils.message(sender, "&bK/D ratio:&f " + kdr);
                     }
                 }

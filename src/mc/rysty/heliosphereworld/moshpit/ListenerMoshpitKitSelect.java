@@ -29,7 +29,8 @@ public class ListenerMoshpitKitSelect implements Listener {
         if (world.equals(Bukkit.getWorld("Moshpit"))) {
             String command = event.getMessage();
             UUID playerId = player.getUniqueId();
-            double kills = moshpitFile.getDouble("users." + playerId + ".kills");
+            double fileKills = moshpitFile.getDouble("users." + playerId + ".kills");
+            int kills = (int) fileKills;
 
             if (command.startsWith("/pigman-equip")) {
                 if (kills < 50) {
