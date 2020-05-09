@@ -37,7 +37,7 @@ public class MessageUtils {
 	}
 
 	public static void noPermissionError(CommandSender sender) {
-		configStringMessage(sender, "no_perm_error");
+		configStringMessage(sender, "no_perm_message");
 	}
 
 	public static void validPlayerError(CommandSender sender) {

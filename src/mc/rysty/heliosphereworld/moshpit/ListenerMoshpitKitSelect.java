@@ -30,7 +30,9 @@ public class ListenerMoshpitKitSelect implements Listener {
             String command = event.getMessage();
             UUID playerId = player.getUniqueId();
             double fileKills = moshpitFile.getDouble("users." + playerId + ".kills");
+            double fileDeaths = moshpitFile.getDouble("users." + playerId + ".deaths");
             int kills = (int) fileKills;
+            int deaths = (int) fileDeaths;
 
             if (command.startsWith("/pigman-equip")) {
                 if (kills < 50) {
@@ -55,6 +57,17 @@ public class ListenerMoshpitKitSelect implements Listener {
             } else if (command.startsWith("/evoker-equip")) {
                 if (kills < 1550) {
                     MessageUtils.configStringMessage(player, "Moshpit.kit-error", "<kills>", "" + (1550 - kills));
+                    event.setCancelled(true);
+                }
+            } else if (command.startsWith("/creeper-equip")) {
+                if (deaths < 500) {
+                    MessageUtils.configStringMessage(player, "Moshpit.kit-error-deaths", "<deaths>",
+                            "" + (500 - deaths));
+                    event.setCancelled(true);
+                }
+            } else if (command.startsWith("/chicken-equip")) {
+                if (!player.getScoreboardTags().contains("unlockedChicken")) {
+                    MessageUtils.configStringMessage(player, "Moshpit.kit-error-other");
                     event.setCancelled(true);
                 }
             } else if (command.startsWith("/pufferfish-equip")) {

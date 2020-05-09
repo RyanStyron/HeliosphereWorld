@@ -17,6 +17,8 @@ SurvivalWorld:
 
 Moshpit:
   kit-error: "&c&l(!)&f You need &b<kills>&f more kills to use this kit!"
+  kit-error-deaths: "&c&l(!)&f You need &b<deaths>&f more deaths to use this kit!"
+  kit-error-other: "&c&l(!)&f You need to find a secret to unlock this kit!"
   item-error: "&c&l(!)&f You need &b<kills>&f more kills to use this item!"
   
 ClassicSMP:
