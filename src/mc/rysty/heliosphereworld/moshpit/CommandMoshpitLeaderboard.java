@@ -25,7 +25,7 @@ public class CommandMoshpitLeaderboard implements CommandExecutor {
     private FileConfiguration moshpitFile = HelioSphereWorld.moshpitFileManager.getData();
 
     public CommandMoshpitLeaderboard(HelioSphereWorld plugin) {
-        plugin.getCommand("moshpitleadboard").setExecutor(this);
+        plugin.getCommand("moshpitleaderboard").setExecutor(this);
     }
 
     @Override
@@ -49,9 +49,10 @@ public class CommandMoshpitLeaderboard implements CommandExecutor {
                     }
                 });
 
-                MessageUtils.message(sender, "&b-===-&3 Moshpit Leaderboard &b-===-");
+                MessageUtils.message(sender, "&b-===-&3 Moshpit KDR Leaderboard &b-===-");
                 for (Map.Entry<String, Double> entry : list) {
-                    MessageUtils.message(sender, "&3" + entry.getKey() + "&b -- &3" + entry.getValue() + " KDR");
+                    MessageUtils.message(sender,
+                            "&3" + entry.getKey() + "&b -- &3" + Math.round(entry.getValue() * 100) / 100 + " KDR");
                 }
             } else
                 MessageUtils.configStringMessage(sender, "world_command_error", "<world>",
