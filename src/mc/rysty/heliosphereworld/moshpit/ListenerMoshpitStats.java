@@ -42,6 +42,7 @@ public class ListenerMoshpitStats implements Listener {
                 double killerKills = moshpitFile.getDouble("users." + killerId + ".kills");
                 double killerDeaths = moshpitFile.getDouble("users." + killerId + ".deaths");
                 double killerStreak = moshpitFile.getDouble("users." + killerId + ".killstreak");
+                double killerStreakHighest = moshpitFile.getDouble("users." + killerId + ".killstreakhighest");
 
                 if (moshpitFile.getString("users." + playerId + ".displayname") != playerDisplayname)
                     moshpitFile.set("users." + playerId + ".displayname", playerDisplayname);
@@ -55,6 +56,8 @@ public class ListenerMoshpitStats implements Listener {
                 moshpitFile.set("users." + killerId + ".kdr",
                         killerDeaths != 0.0 ? killerKills / killerDeaths : killerKills);
                 moshpitFile.set("users." + killerId + ".killstreak", killerStreak + 1.0);
+                if (killerStreak + 1.0 > killerStreakHighest)
+                    moshpitFile.set("users." + killerId + ".killstreakhighest", killerStreak + 1.0);
                 moshpitFileManager.saveData();
 
                 int newKillStreak = (int) killerStreak + 1;
@@ -77,6 +80,8 @@ public class ListenerMoshpitStats implements Listener {
             moshpitFile.set("users." + playerId + ".deaths", 0);
             moshpitFile.set("users." + playerId + ".kills", 0);
             moshpitFile.set("users." + playerId + ".kdr", 0);
+            moshpitFile.set("users." + playerId + ".killstreak", 0);
+            moshpitFile.set("users." + playerId + ".killstreakhighest", 0);
             moshpitFileManager.saveData();
         }
     }

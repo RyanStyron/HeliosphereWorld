@@ -31,8 +31,10 @@ public class ListenerMoshpitKitSelect implements Listener {
             UUID playerId = player.getUniqueId();
             double fileKills = moshpitFile.getDouble("users." + playerId + ".kills");
             double fileDeaths = moshpitFile.getDouble("users." + playerId + ".deaths");
+            double fileHighestStreak = moshpitFile.getDouble("users." + playerId + ".killstreakhighest");
             int kills = (int) fileKills;
             int deaths = (int) fileDeaths;
+            int highestStreak = (int) fileHighestStreak;
 
             if (command.startsWith("/pigman-equip")) {
                 if (kills < 50) {
@@ -68,6 +70,11 @@ public class ListenerMoshpitKitSelect implements Listener {
             } else if (command.startsWith("/chicken-equip")) {
                 if (!player.getScoreboardTags().contains("unlockedChicken")) {
                     MessageUtils.configStringMessage(player, "Moshpit.kit-error-other");
+                    event.setCancelled(true);
+                }
+            } else if (command.startsWith("/horse-equip")) {
+                if (highestStreak < 15) {
+                    MessageUtils.configStringMessage(player, "Moshpit.kit-error-streak", "<streak>", "" + 15);
                     event.setCancelled(true);
                 }
             } else if (command.startsWith("/pufferfish-equip")) {

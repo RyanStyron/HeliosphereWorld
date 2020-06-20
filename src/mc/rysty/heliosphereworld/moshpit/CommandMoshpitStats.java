@@ -42,11 +42,15 @@ public class CommandMoshpitStats implements CommandExecutor {
                         double kills = moshpitFile.getDouble("users." + targetId + ".kills");
                         double deaths = moshpitFile.getDouble("users." + targetId + ".deaths");
                         double kdr = moshpitFile.getDouble("users." + targetId + ".kdr");
+                        double streak = moshpitFile.getDouble("users." + targetId + ".killstreak");
+                        double streakhighest = moshpitFile.getDouble("users." + targetId + ".killstreakhighest");
 
                         MessageUtils.message(sender,
                                 "&b-===-&3 Moshpit Stats:&f " + target.getDisplayName() + " &b-===-");
                         MessageUtils.message(sender, "&bKills:&f " + Math.round(kills * 1) / 1);
                         MessageUtils.message(sender, "&bDeaths:&f " + Math.round(deaths * 1) / 1);
+                        MessageUtils.message(sender, "&bCurrent Streak:&f " + Math.round(streak * 1) / 1);
+                        MessageUtils.message(sender, "&bHighest Streak:&f " + Math.round(streakhighest * 1) / 1);
                         MessageUtils.message(sender, "&bK/D ratio:&f " + kdr);
                     }
                 }

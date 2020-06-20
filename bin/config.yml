@@ -18,6 +18,7 @@ SurvivalWorld:
 Moshpit:
   kit-error: "&c&l(!)&f You need &b<kills>&f more kills to use this kit!"
   kit-error-deaths: "&c&l(!)&f You need &b<deaths>&f more deaths to use this kit!"
+  kit-error-streak: "&c&l(!)&f You need to have achieved a streak of &b<streak>&f to use this kit!"
   kit-error-other: "&c&l(!)&f You need to find a secret to unlock this kit!"
   item-error: "&c&l(!)&f You need &b<kills>&f more kills to use this item!"
   
