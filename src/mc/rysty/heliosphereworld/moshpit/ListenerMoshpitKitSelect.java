@@ -77,7 +77,12 @@ public class ListenerMoshpitKitSelect implements Listener {
                     MessageUtils.configStringMessage(player, "Moshpit.kit-error-streak", "<streak>", "" + 15);
                     event.setCancelled(true);
                 }
-            } else if (command.startsWith("/pufferfish-equip")) {
+            } else if (command.startsWith("/leapingcharm-equip")) {
+                if (kills < 1000) {
+                    MessageUtils.configStringMessage(player, "Moshpit.item-error", "<kills>", "" + (1000 - kills));
+                    event.setCancelled(true);
+                }
+            }else if (command.startsWith("/pufferfish-equip")) {
                 if (kills < 2500) {
                     MessageUtils.configStringMessage(player, "Moshpit.item-error", "<kills>", "" + (2500 - kills));
                     event.setCancelled(true);
