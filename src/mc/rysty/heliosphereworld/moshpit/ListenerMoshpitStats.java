@@ -4,12 +4,13 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerChangedWorldEvent;
 
 import mc.rysty.heliosphereworld.HelioSphereWorld;
 import mc.rysty.heliosphereworld.utils.MessageUtils;
@@ -27,8 +28,9 @@ public class ListenerMoshpitStats implements Listener {
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
+        World world = player.getWorld();
 
-        if (player.getWorld().equals(Bukkit.getWorld("Moshpit"))) {
+        if (world.equals(Bukkit.getWorld("Moshpit"))) {
             Player killer = event.getEntity().getKiller();
             GameMode creative = GameMode.CREATIVE;
 
@@ -50,17 +52,18 @@ public class ListenerMoshpitStats implements Listener {
                     moshpitFile.set("users." + killerId + ".displayname", killerDisplayname);
                 moshpitFile.set("users." + playerId + ".deaths", playerDeaths + 1.0);
                 moshpitFile.set("users." + playerId + ".kdr",
-                        playerDeaths != 0.0 ? playerKills / playerDeaths : playerKills);
+                        playerDeaths != 0.0 ? playerKills / playerDeaths + 1.0 : playerKills);
                 moshpitFile.set("users." + playerId + ".killstreak", 0.0);
                 moshpitFile.set("users." + killerId + ".kills", killerKills + 1.0);
                 moshpitFile.set("users." + killerId + ".kdr",
-                        killerDeaths != 0.0 ? killerKills / killerDeaths : killerKills);
+                        killerDeaths != 0.0 ? killerKills + 1.0 / killerDeaths : killerKills);
                 moshpitFile.set("users." + killerId + ".killstreak", killerStreak + 1.0);
                 if (killerStreak + 1.0 > killerStreakHighest)
                     moshpitFile.set("users." + killerId + ".killstreakhighest", killerStreak + 1.0);
                 moshpitFileManager.saveData();
 
                 int newKillStreak = (int) killerStreak + 1;
+
                 if (newKillStreak % 5 == 0)
                     for (Player onlinePlayer : Bukkit.getOnlinePlayers())
                         if (onlinePlayer.getWorld().equals(Bukkit.getWorld("Moshpit")))
@@ -71,18 +74,21 @@ public class ListenerMoshpitStats implements Listener {
     }
 
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) {
+    public void onPlayerChangedWorld(PlayerChangedWorldEvent event) {
         Player player = event.getPlayer();
         UUID playerId = player.getUniqueId();
+        World world = player.getWorld();
 
-        if (!player.hasPlayedBefore() && moshpitFile.getString("users." + playerId + ".displayname") == null) {
-            moshpitFile.set("users." + playerId + ".displayname", player.getDisplayName());
-            moshpitFile.set("users." + playerId + ".deaths", 0);
-            moshpitFile.set("users." + playerId + ".kills", 0);
-            moshpitFile.set("users." + playerId + ".kdr", 0);
-            moshpitFile.set("users." + playerId + ".killstreak", 0);
-            moshpitFile.set("users." + playerId + ".killstreakhighest", 0);
-            moshpitFileManager.saveData();
+        if (world.equals(Bukkit.getWorld("Moshpit"))) {
+            if (moshpitFile.getConfigurationSection("users." + playerId) == null) {
+                moshpitFile.set("users." + playerId + ".displayname", player.getDisplayName());
+                moshpitFile.set("users." + playerId + ".deaths", 0);
+                moshpitFile.set("users." + playerId + ".kills", 0);
+                moshpitFile.set("users." + playerId + ".kdr", 0);
+                moshpitFile.set("users." + playerId + ".killstreak", 0);
+                moshpitFile.set("users." + playerId + ".killstreakhighest", 0);
+                moshpitFileManager.saveData();
+            }
         }
     }
 }
