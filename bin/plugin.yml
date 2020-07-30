@@ -1,7 +1,9 @@
 name: HS-World
-version: 1.0
+version: 3.4
 author: RySty
 main: mc.rysty.heliosphereworld.HelioSphereWorld
+softdepend: [ViaVersion, ProtocolSupport]
+api-version: 1.16
 
 commands:
   spawn:
