@@ -31,6 +31,7 @@ import mc.rysty.heliosphereworld.moshpit.leaderboard.CommandMoshpitLeaderboardDe
 import mc.rysty.heliosphereworld.moshpit.leaderboard.CommandMoshpitLeaderboardKdr;
 import mc.rysty.heliosphereworld.moshpit.leaderboard.CommandMoshpitLeaderboardKills;
 import mc.rysty.heliosphereworld.moshpit.leaderboard.CommandMoshpitLeaderboardStreak;
+import mc.rysty.heliosphereworld.moshpit.scoreboard.MoshpitScoreboard;
 import mc.rysty.heliosphereworld.utils.BackFileManager;
 import mc.rysty.heliosphereworld.utils.ClassicSMPFileManager;
 import mc.rysty.heliosphereworld.utils.MoshpitFileManager;
@@ -50,7 +51,7 @@ public class HelioSphereWorld extends JavaPlugin {
 	public static WarpFileManager warpFileManager = WarpFileManager.getInstance();
 
 	public void onEnable() {
-		// Plugin setup.
+		/* Plugin setup. */
 		plugin = this;
 		saveDefaultConfig();
 		classicsmpFileManager.setup(this);
@@ -58,7 +59,7 @@ public class HelioSphereWorld extends JavaPlugin {
 		moshpitFileManager.setup(this);
 		warpFileManager.setup(this);
 
-		// General.
+		/* General. */
 		new BackCommand(this);
 		new SpawnCommand(this);
 		new HubCommand(this);
@@ -67,7 +68,7 @@ public class HelioSphereWorld extends JavaPlugin {
 		new CommandSetWarp(this);
 		new CommandDeleteWarp(this);
 
-		// ClassicSMP-related.
+		/* ClassicSMP-related. */
 		new CommandHome(this);
 		new CommandSetHome(this);
 		new CommandDeleteHome(this);
@@ -77,7 +78,7 @@ public class HelioSphereWorld extends JavaPlugin {
 		new WorldVersionCheck(this);
 		new ListenerClassicsmpWhitelist(this);
 
-		// Moshpit-related.
+		/* Moshpit-related. */
 		new CommandAutoEquip(this);
 		new CommandMoshpitSoup(this);
 		new ListenerMoshpitSpawn(this);
@@ -88,8 +89,9 @@ public class HelioSphereWorld extends JavaPlugin {
 		new CommandMoshpitLeaderboardKills(this);
 		new CommandMoshpitLeaderboardDeaths(this);
 		new CommandMoshpitLeaderboardStreak(this);
+		new MoshpitScoreboard(this);
 
-		// Hub-related.
+		/* Hub-related. */
 		new HubInventory(this);
 		new HubPreventModify(this);
 		new HubPreventDamage(this);
