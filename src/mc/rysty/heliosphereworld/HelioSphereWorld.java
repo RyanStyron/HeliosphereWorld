@@ -22,7 +22,7 @@ import mc.rysty.heliosphereworld.hub.PlayerJoin;
 import mc.rysty.heliosphereworld.hub.inventory.HubInventory;
 import mc.rysty.heliosphereworld.hub.inventory.HubInventoryMove;
 import mc.rysty.heliosphereworld.moshpit.CommandAutoEquip;
-import mc.rysty.heliosphereworld.moshpit.CommandMoshpitLeaderboard;
+import mc.rysty.heliosphereworld.moshpit.leaderboard.CommandMoshpitLeaderboard;
 import mc.rysty.heliosphereworld.moshpit.CommandMoshpitSoup;
 import mc.rysty.heliosphereworld.moshpit.CommandMoshpitStats;
 import mc.rysty.heliosphereworld.moshpit.ListenerMoshpitKitSelect;
