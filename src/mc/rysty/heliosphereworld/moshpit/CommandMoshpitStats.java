@@ -51,7 +51,7 @@ public class CommandMoshpitStats implements CommandExecutor {
                         MessageUtils.message(sender, "&bDeaths:&f " + Math.round(deaths * 1) / 1);
                         MessageUtils.message(sender, "&bCurrent Streak:&f " + Math.round(streak * 1) / 1);
                         MessageUtils.message(sender, "&bHighest Streak:&f " + Math.round(streakhighest * 1) / 1);
-                        MessageUtils.message(sender, "&bK/D ratio:&f " + kdr);
+                        MessageUtils.message(sender, "&bK/D ratio:&f " + Math.round(kdr * 100) / 100.0);
                     }
                 }
             } else

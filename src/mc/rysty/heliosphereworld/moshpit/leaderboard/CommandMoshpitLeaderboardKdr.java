@@ -14,17 +14,17 @@ import mc.rysty.heliosphereworld.HelioSphereWorld;
 import mc.rysty.heliosphereworld.utils.MessageUtils;
 import mc.rysty.heliosphereworld.utils.MoshpitLeaderboardUtils;
 
-public class CommandMoshpitLeaderboard implements CommandExecutor {
+public class CommandMoshpitLeaderboardKdr implements CommandExecutor {
 
 	private FileConfiguration moshpitFile = HelioSphereWorld.moshpitFileManager.getData();
 
-	public CommandMoshpitLeaderboard(HelioSphereWorld plugin) {
-		plugin.getCommand("moshpitleaderboard").setExecutor(this);
+	public CommandMoshpitLeaderboardKdr(HelioSphereWorld plugin) {
+		plugin.getCommand("moshpitleaderboardkdr").setExecutor(this);
 	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		if (command.getName().equalsIgnoreCase("moshpitleaderboard")) {
+		if (command.getName().equalsIgnoreCase("moshpitleaderboardkdr")) {
 			if (!(sender instanceof Player && !((Entity) sender).getWorld().equals(Bukkit.getWorld("Moshpit")))) {
 				HashMap<String, Double> userMap = new HashMap<>();
 
@@ -34,8 +34,7 @@ public class CommandMoshpitLeaderboard implements CommandExecutor {
 
 					userMap.put(storedDisplayname, storedScores);
 				}
-				MessageUtils.message(sender, "&b-===-&3 Moshpit KDR Leaderboard &b-===-");
-				MoshpitLeaderboardUtils.getMoshpitLeaderboard(sender, userMap);
+				MoshpitLeaderboardUtils.getMoshpitLeaderboard("KDR", sender, userMap);
 			} else
 				MessageUtils.configStringMessage(sender, "world_command_error", "<world>",
 						((Entity) sender).getWorld().getName());

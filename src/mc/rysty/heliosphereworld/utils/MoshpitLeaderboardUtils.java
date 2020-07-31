@@ -10,17 +10,22 @@ import org.bukkit.command.CommandSender;
 
 public class MoshpitLeaderboardUtils {
 
-    public static void getMoshpitLeaderboard(CommandSender sender, HashMap<String, Double> userMap) {
+    public static void getMoshpitLeaderboard(String leaderboard, CommandSender sender,
+            HashMap<String, Double> userMap) {
         ValueComparator valueComparator = new ValueComparator(userMap);
         TreeMap<String, Double> sortedUserMap = new TreeMap<String, Double>(valueComparator);
         sortedUserMap.putAll(userMap);
 
+        MessageUtils.message(sender, "&b-===-&3 Moshpit " + leaderboard + " Leaderboard &b-===-");
         for (int i = 1; i < 6; i++) {
             Entry<String, Double> entry = sortedUserMap.pollFirstEntry();
             String key = entry.getKey();
             double value = entry.getValue();
 
-            MessageUtils.message(sender, "&b" + i + ". &e" + key + " &b--&3 " + Math.round(value * 10) / 10.0);
+            if (leaderboard.equals("KDR"))
+                MessageUtils.message(sender, "&b" + i + ". &e" + key + " &b--&3 " + Math.round(value * 10) / 10.0);
+            else
+                MessageUtils.message(sender, "&b" + i + ". &e" + key + " &b--&3 " + (int) value);
         }
     }
 

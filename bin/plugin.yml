@@ -20,6 +20,8 @@ commands:
   back:
   autoequip:
   moshpitstats:
-  moshpitleaderboard:
-    aliases: [moshpittop, moshpitlb]
+  moshpitleaderboardkdr:
+  moshpitleaderboardkills:
+  moshpitleaderboarddeaths:
+  moshpitleaderboardstreak:
   moshpitsoup:

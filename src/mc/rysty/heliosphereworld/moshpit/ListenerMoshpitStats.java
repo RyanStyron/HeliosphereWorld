@@ -11,6 +11,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 
 import mc.rysty.heliosphereworld.HelioSphereWorld;
 import mc.rysty.heliosphereworld.utils.MessageUtils;
@@ -37,7 +39,6 @@ public class ListenerMoshpitStats implements Listener {
             if (player.getGameMode() != creative && killer.getGameMode() != creative) {
                 UUID playerId = player.getUniqueId();
                 UUID killerId = killer.getUniqueId();
-                String playerDisplayname = player.getDisplayName();
                 String killerDisplayname = killer.getDisplayName();
                 double playerKills = moshpitFile.getDouble("users." + playerId + ".kills");
                 double playerDeaths = moshpitFile.getDouble("users." + playerId + ".deaths");
@@ -46,17 +47,12 @@ public class ListenerMoshpitStats implements Listener {
                 double killerStreak = moshpitFile.getDouble("users." + killerId + ".killstreak");
                 double killerStreakHighest = moshpitFile.getDouble("users." + killerId + ".killstreakhighest");
 
-                if (moshpitFile.getString("users." + playerId + ".displayname") != playerDisplayname)
-                    moshpitFile.set("users." + playerId + ".displayname", playerDisplayname);
-                if (moshpitFile.getString("users." + killerId + ".displayname") != killerDisplayname)
-                    moshpitFile.set("users." + killerId + ".displayname", killerDisplayname);
                 moshpitFile.set("users." + playerId + ".deaths", playerDeaths + 1.0);
-                moshpitFile.set("users." + playerId + ".kdr",
-                        playerDeaths != 0.0 ? playerKills / playerDeaths + 1.0 : playerKills);
+                moshpitFile.set("users." + playerId + ".kdr", playerKills / (playerDeaths + 1.0));
                 moshpitFile.set("users." + playerId + ".killstreak", 0.0);
                 moshpitFile.set("users." + killerId + ".kills", killerKills + 1.0);
                 moshpitFile.set("users." + killerId + ".kdr",
-                        killerDeaths != 0.0 ? killerKills + 1.0 / killerDeaths : killerKills);
+                        killerDeaths != 0.0 ? (killerKills + 1.0) / killerDeaths : killerKills);
                 moshpitFile.set("users." + killerId + ".killstreak", killerStreak + 1.0);
                 if (killerStreak + 1.0 > killerStreakHighest)
                     moshpitFile.set("users." + killerId + ".killstreakhighest", killerStreak + 1.0);
@@ -79,6 +75,8 @@ public class ListenerMoshpitStats implements Listener {
         UUID playerId = player.getUniqueId();
         World world = player.getWorld();
 
+        udpateMoshpitUserInfo(player);
+
         if (world.equals(Bukkit.getWorld("Moshpit"))) {
             if (moshpitFile.getConfigurationSection("users." + playerId) == null) {
                 moshpitFile.set("users." + playerId + ".displayname", player.getDisplayName());
@@ -90,5 +88,24 @@ public class ListenerMoshpitStats implements Listener {
                 moshpitFileManager.saveData();
             }
         }
+    }
+
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        udpateMoshpitUserInfo(event.getPlayer());
+    }
+
+    @EventHandler
+    public void onPlayerMove(PlayerMoveEvent event) {
+        udpateMoshpitUserInfo(event.getPlayer());
+    }
+
+    private void udpateMoshpitUserInfo(Player player) {
+        UUID playerId = player.getUniqueId();
+        String playerDisplayname = player.getDisplayName();
+
+        if (moshpitFile.getConfigurationSection("users." + playerId) != null)
+            if (moshpitFile.getString("users." + playerId + ".displayname") != playerDisplayname)
+                moshpitFile.set("users." + playerId + ".displayname", playerDisplayname);
     }
 }
