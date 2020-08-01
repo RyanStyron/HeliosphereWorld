@@ -58,11 +58,14 @@ public class MoshpitScoreboard implements Listener {
     @EventHandler
     public void onPlayerChangedWorld(PlayerChangedWorldEvent event) {
         Player player = event.getPlayer();
+        UUID playerId = player.getUniqueId();
         World world = player.getWorld();
 
-        if (world.equals(Bukkit.getWorld("Moshpit")))
+        if (world.equals(Bukkit.getWorld("Moshpit"))) {
+            lastDisplayNameMap.put(playerId, "");
+
             updateMoshpitScoreboardVariables(player);
-        else if (!world.equals(Bukkit.getWorld("Skyforge")))
+        } else if (!world.equals(Bukkit.getWorld("Skyforge")))
             player.setScoreboard(scoreboardManager.getNewScoreboard());
     }
 
