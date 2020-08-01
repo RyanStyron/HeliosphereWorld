@@ -27,11 +27,12 @@ import mc.rysty.heliosphereworld.moshpit.CommandMoshpitStats;
 import mc.rysty.heliosphereworld.moshpit.ListenerMoshpitKitSelect;
 import mc.rysty.heliosphereworld.moshpit.ListenerMoshpitSpawn;
 import mc.rysty.heliosphereworld.moshpit.ListenerMoshpitStats;
+import mc.rysty.heliosphereworld.moshpit.MoshpitCombatLog;
+import mc.rysty.heliosphereworld.moshpit.MoshpitScoreboard;
 import mc.rysty.heliosphereworld.moshpit.leaderboard.CommandMoshpitLeaderboardDeaths;
 import mc.rysty.heliosphereworld.moshpit.leaderboard.CommandMoshpitLeaderboardKdr;
 import mc.rysty.heliosphereworld.moshpit.leaderboard.CommandMoshpitLeaderboardKills;
 import mc.rysty.heliosphereworld.moshpit.leaderboard.CommandMoshpitLeaderboardStreak;
-import mc.rysty.heliosphereworld.moshpit.scoreboard.MoshpitScoreboard;
 import mc.rysty.heliosphereworld.utils.BackFileManager;
 import mc.rysty.heliosphereworld.utils.ClassicSMPFileManager;
 import mc.rysty.heliosphereworld.utils.MoshpitFileManager;
@@ -89,6 +90,7 @@ public class HelioSphereWorld extends JavaPlugin {
 		new CommandMoshpitLeaderboardKills(this);
 		new CommandMoshpitLeaderboardDeaths(this);
 		new CommandMoshpitLeaderboardStreak(this);
+		new MoshpitCombatLog(this);
 		new MoshpitScoreboard(this);
 
 		/* Hub-related. */

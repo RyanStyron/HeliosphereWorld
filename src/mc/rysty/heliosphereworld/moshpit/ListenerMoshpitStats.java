@@ -33,38 +33,40 @@ public class ListenerMoshpitStats implements Listener {
         World world = player.getWorld();
 
         if (world.equals(Bukkit.getWorld("Moshpit"))) {
-            Player killer = event.getEntity().getKiller();
-            GameMode creative = GameMode.CREATIVE;
+            if (player.getKiller() != null) {
+                Player killer = player.getKiller();
+                GameMode creative = GameMode.CREATIVE;
 
-            if (player.getGameMode() != creative && killer.getGameMode() != creative) {
-                UUID playerId = player.getUniqueId();
-                UUID killerId = killer.getUniqueId();
-                String killerDisplayname = killer.getDisplayName();
-                double playerKills = moshpitFile.getDouble("users." + playerId + ".kills");
-                double playerDeaths = moshpitFile.getDouble("users." + playerId + ".deaths");
-                double killerKills = moshpitFile.getDouble("users." + killerId + ".kills");
-                double killerDeaths = moshpitFile.getDouble("users." + killerId + ".deaths");
-                double killerStreak = moshpitFile.getDouble("users." + killerId + ".killstreak");
-                double killerStreakHighest = moshpitFile.getDouble("users." + killerId + ".killstreakhighest");
+                if (player.getGameMode() != creative && killer.getGameMode() != creative) {
+                    UUID playerId = player.getUniqueId();
+                    UUID killerId = killer.getUniqueId();
+                    String killerDisplayname = killer.getDisplayName();
+                    double playerKills = moshpitFile.getDouble("users." + playerId + ".kills");
+                    double playerDeaths = moshpitFile.getDouble("users." + playerId + ".deaths");
+                    double killerKills = moshpitFile.getDouble("users." + killerId + ".kills");
+                    double killerDeaths = moshpitFile.getDouble("users." + killerId + ".deaths");
+                    double killerStreak = moshpitFile.getDouble("users." + killerId + ".killstreak");
+                    double killerStreakHighest = moshpitFile.getDouble("users." + killerId + ".killstreakhighest");
 
-                moshpitFile.set("users." + playerId + ".deaths", playerDeaths + 1.0);
-                moshpitFile.set("users." + playerId + ".kdr", playerKills / (playerDeaths + 1.0));
-                moshpitFile.set("users." + playerId + ".killstreak", 0.0);
-                moshpitFile.set("users." + killerId + ".kills", killerKills + 1.0);
-                moshpitFile.set("users." + killerId + ".kdr",
-                        killerDeaths != 0.0 ? (killerKills + 1.0) / killerDeaths : killerKills);
-                moshpitFile.set("users." + killerId + ".killstreak", killerStreak + 1.0);
-                if (killerStreak + 1.0 > killerStreakHighest)
-                    moshpitFile.set("users." + killerId + ".killstreakhighest", killerStreak + 1.0);
-                moshpitFileManager.saveData();
+                    moshpitFile.set("users." + playerId + ".deaths", playerDeaths + 1.0);
+                    moshpitFile.set("users." + playerId + ".kdr", playerKills / (playerDeaths + 1.0));
+                    moshpitFile.set("users." + playerId + ".killstreak", 0.0);
+                    moshpitFile.set("users." + killerId + ".kills", killerKills + 1.0);
+                    moshpitFile.set("users." + killerId + ".kdr",
+                            killerDeaths != 0.0 ? (killerKills + 1.0) / killerDeaths : killerKills);
+                    moshpitFile.set("users." + killerId + ".killstreak", killerStreak + 1.0);
+                    if (killerStreak + 1.0 > killerStreakHighest)
+                        moshpitFile.set("users." + killerId + ".killstreakhighest", killerStreak + 1.0);
+                    moshpitFileManager.saveData();
 
-                int newKillStreak = (int) killerStreak + 1;
+                    int newKillStreak = (int) killerStreak + 1;
 
-                if (newKillStreak % 5 == 0)
-                    for (Player onlinePlayer : Bukkit.getOnlinePlayers())
-                        if (onlinePlayer.getWorld().equals(Bukkit.getWorld("Moshpit")))
-                            MessageUtils.message(onlinePlayer, "&3&l(!)&f " + killerDisplayname
-                                    + " &fhas a kill streak of &b" + newKillStreak + "&f!");
+                    if (newKillStreak % 5 == 0)
+                        for (Player onlinePlayer : Bukkit.getOnlinePlayers())
+                            if (onlinePlayer.getWorld().equals(Bukkit.getWorld("Moshpit")))
+                                MessageUtils.message(onlinePlayer, "&3&l(!)&f " + killerDisplayname
+                                        + " &fhas a kill streak of &b" + newKillStreak + "&f!");
+                }
             }
         }
     }

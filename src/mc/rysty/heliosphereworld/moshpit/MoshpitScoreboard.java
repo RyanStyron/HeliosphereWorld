@@ -1,4 +1,4 @@
-package mc.rysty.heliosphereworld.moshpit.scoreboard;
+package mc.rysty.heliosphereworld.moshpit;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,15 +6,12 @@ import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
@@ -64,23 +61,35 @@ public class MoshpitScoreboard implements Listener {
         if (world.equals(Bukkit.getWorld("Moshpit"))) {
             lastDisplayNameMap.put(playerId, "");
 
-            updateMoshpitScoreboardVariables(player);
+            Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
+                @Override
+                public void run() {
+                    updateMoshpitScoreboardVariables(player);
+                }
+            }, 0, 20);
         } else if (!world.equals(Bukkit.getWorld("Skyforge")))
             player.setScoreboard(scoreboardManager.getNewScoreboard());
     }
 
-    @EventHandler
-    public void onPlayerMove(PlayerMoveEvent event) {
-        updateMoshpitScoreboardVariables(event.getPlayer());
-    }
+    public void updateMoshpitScoreboardVariables(Player player) {
+        UUID playerId = player.getUniqueId();
+        World world = player.getWorld();
 
-    @EventHandler
-    public void onPlayerTeleport(PlayerTeleportEvent event) {
-        Location toLocation = event.getTo();
-        Location fromLocation = event.getFrom();
+        if (world.equals(Bukkit.getWorld("Moshpit"))) {
+            displayNameString = player.getDisplayName();
+            killsString = "" + (int) moshpitFile.getDouble("users." + playerId + ".kills");
+            deathsString = "" + (int) moshpitFile.getDouble("users." + playerId + ".deaths");
+            streakString = "" + (int) moshpitFile.getDouble("users." + playerId + ".killstreak");
+            highestStreakString = "" + (int) moshpitFile.getDouble("users." + playerId + ".killstreakhighest");
+            kdrString = "" + Math.round(moshpitFile.getDouble("users." + playerId + ".kdr") * 10) / 10.0;
+            combatLogString = (MoshpitCombatLog.isInCombat(player)
+                    ? "In Combat! (" + MoshpitCombatLog.getRemainingCombatTime(player) + ")"
+                    : "Not In Combat!");
 
-        if (toLocation.getWorld() == fromLocation.getWorld())
-            updateMoshpitScoreboardVariables(event.getPlayer());
+            /* Update scoreboard. */
+            if (moshpitScoreboardValuesChanged(player))
+                updateMoshpitScoreboard(player);
+        }
     }
 
     @SuppressWarnings("deprecation")
@@ -137,25 +146,6 @@ public class MoshpitScoreboard implements Listener {
         lastCombatLogMap.put(playerId, combatLogString);
     }
 
-    private void updateMoshpitScoreboardVariables(Player player) {
-        UUID playerId = player.getUniqueId();
-        World world = player.getWorld();
-
-        if (world.equals(Bukkit.getWorld("Moshpit"))) {
-            displayNameString = player.getDisplayName();
-            killsString = "" + (int) moshpitFile.getDouble("users." + playerId + ".kills");
-            deathsString = "" + (int) moshpitFile.getDouble("users." + playerId + ".deaths");
-            streakString = "" + (int) moshpitFile.getDouble("users." + playerId + ".killstreak");
-            highestStreakString = "" + (int) moshpitFile.getDouble("users." + playerId + ".killstreakhighest");
-            kdrString = "" + Math.round(moshpitFile.getDouble("users." + playerId + ".kdr") * 10) / 10.0;
-            combatLogString = "None";
-
-            /* Update scoreboard. */
-            if (moshpitScoreboardValuesChanged(player))
-                updateMoshpitScoreboard(player);
-        }
-    }
-
     private boolean moshpitScoreboardValuesChanged(Player player) {
         UUID playerId = player.getUniqueId();
         String lastPlayerDisplayName = lastDisplayNameMap.get(playerId);
@@ -165,21 +155,6 @@ public class MoshpitScoreboard implements Listener {
         String lastPlayerHighestStreak = lastHighestStreakMap.get(playerId);
         String lastPlayerKdr = lastKdrMap.get(playerId);
         String lastPlayerCombatLog = lastCombatLogMap.get(playerId);
-
-        if (lastPlayerDisplayName == null)
-            lastPlayerDisplayName = "";
-        if (lastPlayerKills == null)
-            lastPlayerKills = "";
-        if (lastPlayerDeaths == null)
-            lastPlayerDeaths = "";
-        if (lastPlayerStreak == null)
-            lastPlayerStreak = "";
-        if (lastPlayerHighestStreak == null)
-            lastPlayerHighestStreak = "";
-        if (lastPlayerKdr == null)
-            lastPlayerKdr = "";
-        if (lastPlayerCombatLog == null)
-            lastPlayerCombatLog = "";
 
         if (!lastPlayerDisplayName.equals(displayNameString) || !lastPlayerKills.equals(killsString)
                 || !lastPlayerDeaths.equals(deathsString) || !lastPlayerStreak.equals(streakString)
