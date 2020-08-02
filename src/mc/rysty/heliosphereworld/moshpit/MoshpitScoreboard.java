@@ -20,6 +20,8 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
 
 import mc.rysty.heliosphereworld.HelioSphereWorld;
+import mc.rysty.heliosphereworld.moshpit.leaderboard.MoshpitLeaderboardPositions;
+import mc.rysty.heliosphereworld.moshpit.leaderboard.MoshpitLeaderboardUtils;
 import mc.rysty.heliosphereworld.utils.MessageUtils;
 import mc.rysty.heliosphereworld.utils.MoshpitFileManager;
 
@@ -64,6 +66,7 @@ public class MoshpitScoreboard implements Listener {
             Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
                 @Override
                 public void run() {
+                    MoshpitLeaderboardUtils.calculateLeaderboardPositions();
                     updateMoshpitScoreboardVariables(player);
                 }
             }, 0, 20);
@@ -73,15 +76,24 @@ public class MoshpitScoreboard implements Listener {
 
     public void updateMoshpitScoreboardVariables(Player player) {
         UUID playerId = player.getUniqueId();
+        String playerDisplayName = player.getDisplayName();
         World world = player.getWorld();
+        int killsPosition = MoshpitLeaderboardPositions.getKillsPosition(playerDisplayName);
+        int deathsPosition = MoshpitLeaderboardPositions.getDeathsPosition(playerDisplayName);
+        int highestStreakPosition = MoshpitLeaderboardPositions.getHighestStreakPosition(playerDisplayName);
+        int kdrPosition = MoshpitLeaderboardPositions.getKdrPosition(playerDisplayName);
 
         if (world.equals(Bukkit.getWorld("Moshpit"))) {
             displayNameString = player.getDisplayName();
-            killsString = "" + (int) moshpitFile.getDouble("users." + playerId + ".kills");
-            deathsString = "" + (int) moshpitFile.getDouble("users." + playerId + ".deaths");
+            killsString = "" + (int) moshpitFile.getDouble("users." + playerId + ".kills") + " (#" + killsPosition
+                    + ")";
+            deathsString = "" + (int) moshpitFile.getDouble("users." + playerId + ".deaths") + " (#" + deathsPosition
+                    + ")";
             streakString = "" + (int) moshpitFile.getDouble("users." + playerId + ".killstreak");
-            highestStreakString = "" + (int) moshpitFile.getDouble("users." + playerId + ".killstreakhighest");
-            kdrString = "" + Math.round(moshpitFile.getDouble("users." + playerId + ".kdr") * 10) / 10.0;
+            highestStreakString = "" + (int) moshpitFile.getDouble("users." + playerId + ".killstreakhighest") + " (#"
+                    + highestStreakPosition + ")";
+            kdrString = "" + Math.round(moshpitFile.getDouble("users." + playerId + ".kdr") * 10) / 10.0 + " (#"
+                    + kdrPosition + ")";
             combatLogString = (MoshpitCombatLog.isInCombat(player)
                     ? "In Combat! (" + MoshpitCombatLog.getRemainingCombatTime(player) + ")"
                     : "Not In Combat!");
@@ -114,7 +126,7 @@ public class MoshpitScoreboard implements Listener {
         Score fillerLine2 = objective.getScore(MessageUtils.convertChatColors("&f&3----------------------"));
         Score kills = objective.getScore(MessageUtils.convertChatColors("&fKills&7:&b " + killsString));
         Score deaths = objective.getScore(MessageUtils.convertChatColors("&fDeaths&7:&b " + deathsString));
-        Score streak = objective.getScore(MessageUtils.convertChatColors("&fStreak&7:&b " + streakString));
+        Score streak = objective.getScore(MessageUtils.convertChatColors("&fCurrent Streak&7:&b " + streakString));
         Score highestStreak = objective
                 .getScore(MessageUtils.convertChatColors("&fHighest Streak&7:&b " + highestStreakString));
         Score kdr = objective.getScore(MessageUtils.convertChatColors("&fK/D Ratio&7:&b " + kdrString));
