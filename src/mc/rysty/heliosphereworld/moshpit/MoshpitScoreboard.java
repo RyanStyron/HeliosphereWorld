@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
@@ -74,6 +75,20 @@ public class MoshpitScoreboard implements Listener {
             player.setScoreboard(scoreboardManager.getNewScoreboard());
     }
 
+    /*
+     * This method serves as a backup to load the scoreboard in the event that the
+     * plugin is reloaded whilst players are already in the Moshpit.
+     */
+    @EventHandler
+    public void onPlayerMove(PlayerMoveEvent event) {
+        Player player = event.getPlayer();
+
+        if (player.getWorld().equals(Bukkit.getWorld("Moshpit")))
+            if (!MoshpitCombatLog.playerInCombat.containsKey(player))
+                if (Bukkit.getWorld("Hub") != null)
+                    player.teleport(Bukkit.getWorld("Hub").getSpawnLocation());
+    }
+
     public void updateMoshpitScoreboardVariables(Player player) {
         UUID playerId = player.getUniqueId();
         String playerDisplayName = player.getDisplayName();
@@ -98,7 +113,6 @@ public class MoshpitScoreboard implements Listener {
                     ? "In Combat! (" + MoshpitCombatLog.getRemainingCombatTime(player) + ")"
                     : "Not In Combat!");
 
-            /* Update scoreboard. */
             if (moshpitScoreboardValuesChanged(player))
                 updateMoshpitScoreboard(player);
         }

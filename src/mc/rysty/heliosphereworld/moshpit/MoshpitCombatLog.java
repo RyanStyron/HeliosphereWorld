@@ -27,7 +27,7 @@ public class MoshpitCombatLog implements Listener {
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
 
-	private static HashMap<Player, Boolean> playerInCombat = new HashMap<Player, Boolean>();
+	public static HashMap<Player, Boolean> playerInCombat = new HashMap<Player, Boolean>();
 	private static HashMap<Player, Integer> combatCooldown = new HashMap<Player, Integer>();
 
 	@EventHandler
@@ -58,9 +58,8 @@ public class MoshpitCombatLog implements Listener {
 	@EventHandler
 	public void onPlayerChangedWorld(PlayerChangedWorldEvent event) {
 		Player player = event.getPlayer();
-		World world = player.getWorld();
 
-		if (world.equals(Bukkit.getWorld("Moshpit")))
+		if (player.getWorld().equals(Bukkit.getWorld("Moshpit")))
 			playerInCombat.put(player, false);
 	}
 
@@ -80,9 +79,8 @@ public class MoshpitCombatLog implements Listener {
 		Player player = event.getEntity();
 
 		if (player.getWorld().equals(Bukkit.getWorld("Moshpit")))
-			if (isInCombat(player)) {
+			if (isInCombat(player))
 				playerInCombat.put(player, false);
-			}
 	}
 
 	@EventHandler
