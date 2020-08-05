@@ -12,7 +12,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
@@ -73,20 +72,6 @@ public class MoshpitScoreboard implements Listener {
             }, 0, 20);
         } else if (!world.equals(Bukkit.getWorld("Skyforge")))
             player.setScoreboard(scoreboardManager.getNewScoreboard());
-    }
-
-    /*
-     * This method serves as a backup to load the scoreboard in the event that the
-     * plugin is reloaded whilst players are already in the Moshpit.
-     */
-    @EventHandler
-    public void onPlayerMove(PlayerMoveEvent event) {
-        Player player = event.getPlayer();
-
-        if (player.getWorld().equals(Bukkit.getWorld("Moshpit")))
-            if (!MoshpitCombatLog.playerInCombat.containsKey(player))
-                if (Bukkit.getWorld("Hub") != null)
-                    player.teleport(Bukkit.getWorld("Hub").getSpawnLocation());
     }
 
     public void updateMoshpitScoreboardVariables(Player player) {
