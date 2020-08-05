@@ -25,6 +25,7 @@ import mc.rysty.heliosphereworld.moshpit.CommandAutoEquip;
 import mc.rysty.heliosphereworld.moshpit.CommandMoshpitSoup;
 import mc.rysty.heliosphereworld.moshpit.CommandMoshpitStats;
 import mc.rysty.heliosphereworld.moshpit.ListenerMoshpitKitSelect;
+import mc.rysty.heliosphereworld.moshpit.ListenerMoshpitSoup;
 import mc.rysty.heliosphereworld.moshpit.ListenerMoshpitSpawn;
 import mc.rysty.heliosphereworld.moshpit.ListenerMoshpitStats;
 import mc.rysty.heliosphereworld.moshpit.MoshpitCombatLog;
@@ -82,6 +83,7 @@ public class HelioSphereWorld extends JavaPlugin {
 		/* Moshpit-related. */
 		new CommandAutoEquip(this);
 		new CommandMoshpitSoup(this);
+		new ListenerMoshpitSoup(this);
 		new ListenerMoshpitSpawn(this);
 		new ListenerMoshpitStats(this);
 		new CommandMoshpitStats(this);

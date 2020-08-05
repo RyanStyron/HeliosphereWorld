@@ -40,9 +40,6 @@ public class CommandMoshpitSoup implements CommandExecutor {
                         inventory.setItem(3, stew);
                         inventory.setItem(4, stew);
                         inventory.setItem(5, stew);
-                        inventory.setItem(6, stew);
-                        inventory.setItem(7, stew);
-                        inventory.setItem(8, stew);
                     } else
                         MessageUtils.configStringMessage(sender, "world_command_error", "<world>", world.getName());
                 } else
