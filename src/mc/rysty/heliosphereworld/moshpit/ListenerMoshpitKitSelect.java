@@ -61,6 +61,11 @@ public class ListenerMoshpitKitSelect implements Listener {
                     MessageUtils.configStringMessage(player, "Moshpit.kit-error", "<kills>", "" + (1550 - kills));
                     event.setCancelled(true);
                 }
+            } else if (command.startsWith("/explosivetrap-equip")) {
+                if (kills < 1970) {
+                    MessageUtils.configStringMessage(player, "Moshpit.kit-error", "<kills>", "" + (1970 - kills));
+                    event.setCancelled(true);
+                }
             } else if (command.startsWith("/creeper-equip")) {
                 if (deaths < 500) {
                     MessageUtils.configStringMessage(player, "Moshpit.kit-error-deaths", "<deaths>",
@@ -82,7 +87,7 @@ public class ListenerMoshpitKitSelect implements Listener {
                     MessageUtils.configStringMessage(player, "Moshpit.item-error", "<kills>", "" + (1000 - kills));
                     event.setCancelled(true);
                 }
-            }else if (command.startsWith("/pufferfish-equip")) {
+            } else if (command.startsWith("/pufferfish-equip")) {
                 if (kills < 2500) {
                     MessageUtils.configStringMessage(player, "Moshpit.item-error", "<kills>", "" + (2500 - kills));
                     event.setCancelled(true);
