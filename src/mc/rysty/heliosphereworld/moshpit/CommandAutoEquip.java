@@ -14,13 +14,13 @@ import mc.rysty.heliosphereworld.utils.MessageUtils;
 public class CommandAutoEquip implements CommandExecutor {
 
     public CommandAutoEquip(HelioSphereWorld plugin) {
-        plugin.getCommand("autoequip").setExecutor(this);
+        plugin.getCommand("moshpitautoequip").setExecutor(this);
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (command.getName().equalsIgnoreCase("autoequip")) {
-            if (sender.hasPermission("hs.autoequip")) {
+        if (command.getName().equalsIgnoreCase("moshpitautoequip")) {
+            if (sender.hasPermission("hs.moshpitautoequip")) {
                 Player target = null;
 
                 if (args.length > 0)
@@ -36,11 +36,11 @@ public class CommandAutoEquip implements CommandExecutor {
                     if (worldName.equalsIgnoreCase("Moshpit")) {
                         PlayerInventory inventory = target.getInventory();
 
-                        ItemStack helmet = inventory.getItem(12);
-                        ItemStack chestplate = inventory.getItem(11);
-                        ItemStack leggings = inventory.getItem(10);
-                        ItemStack boots = inventory.getItem(9);
-                        ItemStack[] newArmorContents = { helmet, chestplate, leggings, boots };
+                        ItemStack helmet = inventory.getItem(6);
+                        ItemStack chestplate = inventory.getItem(9);
+                        ItemStack leggings = inventory.getItem(7);
+                        ItemStack boots = inventory.getItem(8);
+                        ItemStack[] newArmorContents = { chestplate, boots, leggings, helmet };
 
                         inventory.setArmorContents(newArmorContents);
                         inventory.remove(helmet);

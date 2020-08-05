@@ -18,7 +18,7 @@ commands:
   deletewarp:
     aliases: [delwarp]
   back:
-  autoequip:
+  moshpitautoequip:
   moshpitstats:
   moshpitleaderboardkdr:
   moshpitleaderboardkills:
