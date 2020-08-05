@@ -3,6 +3,7 @@ package mc.rysty.heliosphereworld.moshpit;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -24,6 +25,7 @@ public class ListenerMoshpitSoup implements Listener {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
+    @SuppressWarnings("deprecation")
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
         Action action = event.getAction();
@@ -45,7 +47,17 @@ public class ListenerMoshpitSoup implements Listener {
                         return;
 
                     if (material.equals(Material.MUSHROOM_STEW)) {
+                        double playerMaxHealth = player.getMaxHealth();
+                        double playerHealth = player.getHealth();
                         int inventorySlot = inventory.getHeldItemSlot();
+                        ItemStack bowl = new ItemStack(Material.BOWL, 1);
+
+                        if (playerHealth + 5.0 <= playerMaxHealth)
+                            player.setHealth(playerHealth + 5.0);
+                        else
+                            player.setHealth(playerHealth + (playerMaxHealth - playerHealth));
+                        player.playSound(location, Sound.ENTITY_GENERIC_EAT, 1.0F, 1.0F);
+                        inventory.setItem(inventorySlot, bowl);
 
                         Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
                             @Override
@@ -56,13 +68,16 @@ public class ListenerMoshpitSoup implements Listener {
                                 itemMeta.setDisplayName(MessageUtils.convertChatColors("&bMushroom Stew"));
                                 stew.setItemMeta(itemMeta);
                                 /*
-                                 * The following line does not use the world variable because the Moshpit is
-                                 * already the stored world, so it would always return true.
+                                 * The following line does not use the world or location variable because the
+                                 * Moshpit is already the stored world as is their location, so it would always
+                                 * return true.
                                  */
-                                if (player.getWorld().equals(Bukkit.getWorld("Moshpit")))
+                                if (player.getWorld().equals(Bukkit.getWorld("Moshpit"))) {
+                                    player.playSound(player.getLocation(), Sound.ENTITY_ITEM_PICKUP, 1.0F, 1.0F);
                                     inventory.setItem(inventorySlot, stew);
+                                }
                             }
-                        }, 100);
+                        }, 300);
                     }
                 }
     }
