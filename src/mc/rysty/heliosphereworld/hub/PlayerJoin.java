@@ -17,14 +17,14 @@ public class PlayerJoin implements Listener {
 	}
 
 	@EventHandler
-	public void onJoin(PlayerJoinEvent event) {
+	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
 
 		if (Bukkit.getWorld("Hub") != null) {
-			World hubWorld = Bukkit.getWorld("Hub");
-			Location hub = hubWorld.getSpawnLocation();
+			World hub = Bukkit.getWorld("Hub");
+			Location hubSpawnLocation = hub.getSpawnLocation();
 
-			player.teleport(hub);
+			player.teleport(hubSpawnLocation);
 		}
 	}
 }

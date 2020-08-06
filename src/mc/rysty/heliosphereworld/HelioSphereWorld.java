@@ -16,11 +16,10 @@ import mc.rysty.heliosphereworld.commands.CommandSetWarp;
 import mc.rysty.heliosphereworld.commands.CommandWarp;
 import mc.rysty.heliosphereworld.commands.HubCommand;
 import mc.rysty.heliosphereworld.commands.SpawnCommand;
+import mc.rysty.heliosphereworld.hub.HubInventory;
 import mc.rysty.heliosphereworld.hub.HubPreventDamage;
 import mc.rysty.heliosphereworld.hub.HubPreventModify;
 import mc.rysty.heliosphereworld.hub.PlayerJoin;
-import mc.rysty.heliosphereworld.hub.inventory.HubInventory;
-import mc.rysty.heliosphereworld.hub.inventory.HubInventoryMove;
 import mc.rysty.heliosphereworld.moshpit.CommandAutoEquip;
 import mc.rysty.heliosphereworld.moshpit.CommandMoshpitSoup;
 import mc.rysty.heliosphereworld.moshpit.CommandMoshpitStats;
@@ -99,7 +98,6 @@ public class HelioSphereWorld extends JavaPlugin {
 		new HubInventory(this);
 		new HubPreventModify(this);
 		new HubPreventDamage(this);
-		new HubInventoryMove(this);
 
 		System.out.println("HS-World enabled");
 	}

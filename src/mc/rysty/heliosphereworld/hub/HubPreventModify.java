@@ -1,8 +1,8 @@
 package mc.rysty.heliosphereworld.hub;
 
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
-import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -10,9 +10,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
 
 import mc.rysty.heliosphereworld.HelioSphereWorld;
-import mc.rysty.heliosphereworld.utils.MessageUtils;
 
 public class HubPreventModify implements Listener {
 
@@ -23,59 +23,43 @@ public class HubPreventModify implements Listener {
 	@EventHandler
 	public void onBlockBreak(BlockBreakEvent event) {
 		Player player = event.getPlayer();
-		boolean spawnBuildPermission = player.hasPermission("hs.spawnbuild");
-		boolean creative = player.getGameMode().equals(GameMode.CREATIVE);
 
-		if (player.getWorld().getName().equalsIgnoreCase("Hub")) {
-			if (!creative || !spawnBuildPermission) {
+		if (!canHubBuild(player))
+			event.setCancelled(true);
+
+		if (event.getBlock().getType() == Material.BARRIER)
+			if (!player.hasPermission("hs.barrierbreak"))
 				event.setCancelled(true);
-				if (!spawnBuildPermission) {
-				} else {
-					MessageUtils.configStringMessage(player, "Spawn.no_block_modify");
-				}
-			}
-		}
 	}
 
 	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent event) {
-		Player player = event.getPlayer();
-		boolean spawnBuildPermission = player.hasPermission("hs.spawnbuild");
-		boolean creative = player.getGameMode().equals(GameMode.CREATIVE);
-
-		if (player.getWorld().getName().equalsIgnoreCase("Hub")) {
-			if (!creative || !spawnBuildPermission) {
-				event.setCancelled(true);
-				if (!spawnBuildPermission) {
-				} else {
-					MessageUtils.configStringMessage(player, "Spawn.no_block_modify");
-				}
-			}
-		}
+		if (!canHubBuild(event.getPlayer()))
+			event.setCancelled(true);
 	}
 
 	@EventHandler
-	public void onBarrierBreak(BlockBreakEvent event) {
-		Player player = event.getPlayer();
+	public void onEntityPickupItem(EntityPickupItemEvent event) {
+		LivingEntity entity = event.getEntity();
 
-		if (event.getBlock().getType() == Material.BARRIER) {
-			if (!player.hasPermission("hs.barrierbreak")) {
+		if (entity instanceof Player)
+			if (!canHubBuild((Player) entity))
 				event.setCancelled(true);
-				MessageUtils.noPermissionError(player);
-			}
-		}
 	}
 
 	@EventHandler
-	public void onItemPickUp(EntityPickupItemEvent event) {
-		LivingEntity livingEntity = event.getEntity();
-		boolean spawnBuildPermission = livingEntity.hasPermission("hs.spawnbuild");
-		boolean creative = ((HumanEntity) livingEntity).getGameMode().equals(GameMode.CREATIVE);
+	public void onPlayerDropItem(PlayerDropItemEvent event) {
+		if (!canHubBuild(event.getPlayer()))
+			event.setCancelled(true);
+	}
 
-		if (livingEntity.getWorld().getName().equalsIgnoreCase("Hub")) {
-			if (!creative || !spawnBuildPermission) {
-				event.setCancelled(true);
-			}
-		}
+	private boolean canHubBuild(Player player) {
+		GameMode gamemode = player.getGameMode();
+		boolean canSpawnBuild = player.hasPermission("hs.spawnbuild");
+
+		if (player.getWorld().equals(Bukkit.getWorld("Hub")))
+			if (gamemode != GameMode.CREATIVE || !canSpawnBuild)
+				return false;
+		return true;
 	}
 }

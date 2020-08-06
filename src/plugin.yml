@@ -1,5 +1,5 @@
 name: HS-World
-version: 3.4
+version: 3.5
 author: RySty
 main: mc.rysty.heliosphereworld.HelioSphereWorld
 softdepend: [ViaVersion, ProtocolSupport]

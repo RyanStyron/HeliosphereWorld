@@ -1,16 +1,18 @@
-package mc.rysty.heliosphereworld.hub.inventory;
+package mc.rysty.heliosphereworld.hub;
 
 import java.util.ArrayList;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
@@ -26,54 +28,46 @@ public class HubInventory implements Listener {
 	}
 
 	@EventHandler
-	public void onJoin(PlayerJoinEvent event) {
-		Player player = event.getPlayer();
-
-		hubInventorySet(player);
+	public void onPlayerJoin(PlayerJoinEvent event) {
+		setHubInventory(event.getPlayer());
 	}
 
 	@EventHandler
-	public void onWorldChange(PlayerChangedWorldEvent event) {
-		Player player = event.getPlayer();
-
-		hubInventorySet(player);
+	public void onPlayerChangedWorld(PlayerChangedWorldEvent event) {
+		setHubInventory(event.getPlayer());
 	}
 
 	@EventHandler
-	public void onRespawn(PlayerRespawnEvent event) {
-		Player player = event.getPlayer();
-
-		hubInventorySet(player);
+	public void onPlayerRespawn(PlayerRespawnEvent event) {
+		setHubInventory(event.getPlayer());
 	}
 
 	@EventHandler
-	public void onItemDrop(PlayerDropItemEvent event) {
-		Player player = event.getPlayer();
-		boolean hub = player.getLocation().getWorld().getName().equalsIgnoreCase("Hub");
-		boolean creative = player.getGameMode().equals(GameMode.CREATIVE);
+	public void onInventoryClick(InventoryClickEvent event) {
+		HumanEntity player = event.getWhoClicked();
 
-		if (hub && !creative) {
-			event.setCancelled(true);
-		}
+		if (player.getWorld().equals(Bukkit.getWorld("Hub")))
+			if (player.getGameMode() != GameMode.CREATIVE)
+				event.setCancelled(true);
 	}
 
-	private void hubInventorySet(Player player) {
-		String worldName = player.getLocation().getWorld().getName();
+	private void setHubInventory(Player player) {
 		ItemStack item = new ItemStack(Material.COMPASS);
 		ItemMeta itemData = item.getItemMeta();
+		ArrayList<String> itemLore = new ArrayList<>();
+
 		itemData.addEnchant(Enchantment.DAMAGE_ALL, 50, false);
 		itemData.setDisplayName("" + ChatColor.AQUA + "Main Menu");
-		ArrayList<String> itemLore = new ArrayList<>();
 		itemLore.add("");
 		itemLore.add(ChatColor.GRAY + " > Click to open the " + ChatColor.DARK_AQUA + "Main Menu");
 		itemData.setLore(itemLore);
 		item.setItemMeta(itemData);
 
-		if (worldName.equalsIgnoreCase("Hub")) {
-			PlayerInventory inv = player.getInventory();
+		if (player.getWorld().equals(Bukkit.getWorld("Hub"))) {
+			PlayerInventory inventory = player.getInventory();
 
-			inv.clear();
-			inv.setItem(0, item);
+			inventory.clear();
+			inventory.setItem(0, item);
 		}
 	}
 }
