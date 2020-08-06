@@ -1,4 +1,4 @@
-package mc.rysty.heliosphereworld.commands;
+package mc.rysty.heliosphereworld.hub;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 
 import mc.rysty.heliosphereworld.HelioSphereWorld;
 import mc.rysty.heliosphereworld.utils.MessageUtils;
-import net.md_5.bungee.api.ChatColor;
 
 public class HubCommand implements CommandExecutor {
 
@@ -18,16 +17,16 @@ public class HubCommand implements CommandExecutor {
 	}
 
 	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (cmd.getName().equalsIgnoreCase("hub")) {
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+		if (command.getName().equalsIgnoreCase("hub")) {
 			if (Bukkit.getWorld("Hub") != null) {
 				Player player = (Player) sender;
-				Location hub = Bukkit.getWorld("Hub").getSpawnLocation();
+				Location hubSpawnLocation = Bukkit.getWorld("Hub").getSpawnLocation();
 
-				player.teleport(hub);
+				player.teleport(hubSpawnLocation);
 				MessageUtils.configStringMessage(player, "teleported_world_message", "<world>", "Hub");
 			} else
-				MessageUtils.configStringMessage(sender, ChatColor.RED + "This server does not have a registered Hub.");
+				MessageUtils.message(sender, "&c&l(!)&f This server does not have a registered Hub.");
 		}
 		return false;
 	}

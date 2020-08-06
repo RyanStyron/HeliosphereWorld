@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
@@ -29,7 +31,15 @@ public class HubInventory implements Listener {
 
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
-		setHubInventory(event.getPlayer());
+		Player player = event.getPlayer();
+
+		if (Bukkit.getWorld("Hub") != null) {
+			World hub = Bukkit.getWorld("Hub");
+			Location hubSpawnLocation = hub.getSpawnLocation();
+
+			player.teleport(hubSpawnLocation);
+		}
+		setHubInventory(player);
 	}
 
 	@EventHandler
