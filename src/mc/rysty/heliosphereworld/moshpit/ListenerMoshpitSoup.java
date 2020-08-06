@@ -34,8 +34,8 @@ public class ListenerMoshpitSoup implements Listener {
         World world = location.getWorld();
         PlayerInventory inventory = player.getInventory();
 
-        if (world.equals(Bukkit.getWorld("Moshpit")))
-            if (location.distanceSquared(world.getSpawnLocation()) > 361)
+        if (world.equals(Bukkit.getWorld("Moshpit"))) {
+            if (location.distanceSquared(world.getSpawnLocation()) > 361) {
                 if (action == Action.RIGHT_CLICK_BLOCK || action == Action.RIGHT_CLICK_AIR) {
                     ItemStack item = inventory.getItemInMainHand();
 
@@ -56,9 +56,11 @@ public class ListenerMoshpitSoup implements Listener {
                             player.setHealth(playerHealth + 5.0);
                         else
                             player.setHealth(playerHealth + (playerMaxHealth - playerHealth));
-                        player.playSound(location, Sound.ENTITY_GENERIC_EAT, 1.0F, 1.0F);
                         inventory.setItem(inventorySlot, bowl);
 
+                        for (Player onlinePlayer : Bukkit.getOnlinePlayers())
+                            if (onlinePlayer.getWorld().equals(Bukkit.getWorld("Moshpit")))
+                                onlinePlayer.playSound(location, Sound.ENTITY_GENERIC_EAT, 1.0F, 1.0F);
                         Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
                             @Override
                             public void run() {
@@ -80,5 +82,7 @@ public class ListenerMoshpitSoup implements Listener {
                         }, 300);
                     }
                 }
+            }
+        }
     }
 }
