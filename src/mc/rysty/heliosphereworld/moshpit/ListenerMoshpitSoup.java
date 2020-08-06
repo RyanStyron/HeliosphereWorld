@@ -52,8 +52,8 @@ public class ListenerMoshpitSoup implements Listener {
                         int inventorySlot = inventory.getHeldItemSlot();
                         ItemStack bowl = new ItemStack(Material.BOWL, 1);
 
-                        if (playerHealth + 5.0 <= playerMaxHealth)
-                            player.setHealth(playerHealth + 5.0);
+                        if (playerHealth + 6.0 <= playerMaxHealth)
+                            player.setHealth(playerHealth + 6.0);
                         else
                             player.setHealth(playerHealth + (playerMaxHealth - playerHealth));
                         inventory.setItem(inventorySlot, bowl);
@@ -79,7 +79,7 @@ public class ListenerMoshpitSoup implements Listener {
                                     inventory.setItem(inventorySlot, stew);
                                 }
                             }
-                        }, 300);
+                        }, 400);
                     }
                 }
             }
