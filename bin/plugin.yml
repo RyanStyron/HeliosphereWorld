@@ -8,11 +8,6 @@ api-version: 1.16
 commands:
   spawn:
   hub:
-  pvptoggle:
-  home:
-  sethome:
-  deletehome:
-    aliases: [delhome]
   warp:
   setwarp:
   deletewarp:
