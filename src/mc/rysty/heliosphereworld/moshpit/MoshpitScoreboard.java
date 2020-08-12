@@ -23,7 +23,7 @@ import mc.rysty.heliosphereworld.HelioSphereWorld;
 import mc.rysty.heliosphereworld.moshpit.leaderboard.MoshpitLeaderboardPositions;
 import mc.rysty.heliosphereworld.moshpit.leaderboard.MoshpitLeaderboardUtils;
 import mc.rysty.heliosphereworld.utils.MessageUtils;
-import mc.rysty.heliosphereworld.utils.MoshpitFileManager;
+import mc.rysty.heliosphereworld.utils.managers.MoshpitFileManager;
 
 public class MoshpitScoreboard implements Listener {
 

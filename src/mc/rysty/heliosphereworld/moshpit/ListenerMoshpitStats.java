@@ -16,7 +16,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 import mc.rysty.heliosphereworld.HelioSphereWorld;
 import mc.rysty.heliosphereworld.utils.MessageUtils;
-import mc.rysty.heliosphereworld.utils.MoshpitFileManager;
+import mc.rysty.heliosphereworld.utils.managers.MoshpitFileManager;
 
 public class ListenerMoshpitStats implements Listener {
 

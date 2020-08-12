@@ -11,7 +11,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 import mc.rysty.heliosphereworld.HelioSphereWorld;
 import mc.rysty.heliosphereworld.utils.MessageUtils;
-import mc.rysty.heliosphereworld.utils.MoshpitFileManager;
+import mc.rysty.heliosphereworld.utils.managers.MoshpitFileManager;
 
 public class MoshpitLeaderboardUtils {
 

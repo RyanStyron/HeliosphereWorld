@@ -1,4 +1,4 @@
-package mc.rysty.heliosphereworld.utils;
+package mc.rysty.heliosphereworld.utils.managers;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,34 +9,29 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
-public class MoshpitFileManager {
+public class BackFileManager {
 
-    public static MoshpitFileManager instance = new MoshpitFileManager();
+    private static BackFileManager instance = new BackFileManager();
 
-    public static MoshpitFileManager getInstance() {
+    public static BackFileManager getInstance() {
         return instance;
     }
 
-    Plugin plugin;
-
-    FileConfiguration data;
-    File dataFile;
+    private FileConfiguration data;
+    private File dataFile;
 
     public void setup(Plugin plugin) {
-        if (!plugin.getDataFolder().exists()) {
+        if (!plugin.getDataFolder().exists())
             plugin.getDataFolder().mkdir();
-        }
-
-        dataFile = new File(plugin.getDataFolder(), "moshpit.yml");
+        dataFile = new File(plugin.getDataFolder(), "back.yml");
 
         if (!dataFile.exists()) {
             try {
                 dataFile.createNewFile();
             } catch (IOException e) {
-                Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not create moshpit.yml!");
+                Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not create back.yml!");
             }
         }
-
         data = YamlConfiguration.loadConfiguration(dataFile);
     }
 
@@ -48,7 +43,7 @@ public class MoshpitFileManager {
         try {
             data.save(dataFile);
         } catch (IOException e) {
-            Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save moshpit.yml!");
+            Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save back.yml!");
         }
     }
 

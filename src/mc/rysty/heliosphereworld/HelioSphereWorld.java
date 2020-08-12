@@ -23,9 +23,9 @@ import mc.rysty.heliosphereworld.moshpit.leaderboard.CommandMoshpitLeaderboardDe
 import mc.rysty.heliosphereworld.moshpit.leaderboard.CommandMoshpitLeaderboardKdr;
 import mc.rysty.heliosphereworld.moshpit.leaderboard.CommandMoshpitLeaderboardKills;
 import mc.rysty.heliosphereworld.moshpit.leaderboard.CommandMoshpitLeaderboardStreak;
-import mc.rysty.heliosphereworld.utils.BackFileManager;
-import mc.rysty.heliosphereworld.utils.MoshpitFileManager;
-import mc.rysty.heliosphereworld.utils.WarpFileManager;
+import mc.rysty.heliosphereworld.utils.managers.BackFileManager;
+import mc.rysty.heliosphereworld.utils.managers.MoshpitFileManager;
+import mc.rysty.heliosphereworld.utils.managers.WarpFileManager;
 
 public class HelioSphereWorld extends JavaPlugin {
 

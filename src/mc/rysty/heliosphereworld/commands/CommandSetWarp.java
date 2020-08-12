@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 
 import mc.rysty.heliosphereworld.HelioSphereWorld;
 import mc.rysty.heliosphereworld.utils.MessageUtils;
-import mc.rysty.heliosphereworld.utils.WarpFileManager;
+import mc.rysty.heliosphereworld.utils.managers.WarpFileManager;
 
 public class CommandSetWarp implements CommandExecutor {
 

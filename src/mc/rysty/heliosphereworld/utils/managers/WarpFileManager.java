@@ -1,4 +1,4 @@
-package mc.rysty.heliosphereworld.utils;
+package mc.rysty.heliosphereworld.utils.managers;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,6 +8,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
+
+import mc.rysty.heliosphereworld.utils.MessageUtils;
 
 public class WarpFileManager {
 
@@ -22,10 +24,8 @@ public class WarpFileManager {
     private CommandSender console = Bukkit.getConsoleSender();
 
     public void setup(Plugin plugin) {
-        if (!plugin.getDataFolder().exists()) {
+        if (!plugin.getDataFolder().exists())
             plugin.getDataFolder().mkdir();
-        }
-
         dataFile = new File(plugin.getDataFolder(), "warp.yml");
 
         if (!dataFile.exists()) {
@@ -35,7 +35,6 @@ public class WarpFileManager {
                 MessageUtils.message(console, "&4&l(!)&c Could not create warp.yml!");
             }
         }
-
         data = YamlConfiguration.loadConfiguration(dataFile);
     }
 
