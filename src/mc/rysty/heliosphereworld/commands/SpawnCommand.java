@@ -36,9 +36,6 @@ public class SpawnCommand implements CommandExecutor {
 					case "Hub":
 						MessageUtils.configStringMessage(player, "teleported_world_message", "<world>", "Hub");
 						break;
-					case "MinigamesHub":
-						MessageUtils.configStringMessage(player, "teleported_world_message", "<world>", "Minigames");
-						break;
 					default:
 						MessageUtils.configStringMessage(player, "teleported_spawn_message", "<world>", worldName);
 						break;
