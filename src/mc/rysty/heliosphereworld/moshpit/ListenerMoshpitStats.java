@@ -77,8 +77,6 @@ public class ListenerMoshpitStats implements Listener {
         UUID playerId = player.getUniqueId();
         World world = player.getWorld();
 
-        udpateMoshpitUserInfo(player);
-
         if (world.equals(Bukkit.getWorld("Moshpit"))) {
             if (moshpitFile.getConfigurationSection("users." + playerId) == null) {
                 moshpitFile.set("users." + playerId + ".displayname", player.getDisplayName());
@@ -90,6 +88,7 @@ public class ListenerMoshpitStats implements Listener {
                 moshpitFileManager.saveData();
             }
         }
+        udpateMoshpitUserInfo(player);
     }
 
     @EventHandler
@@ -107,7 +106,9 @@ public class ListenerMoshpitStats implements Listener {
         String playerDisplayname = player.getDisplayName();
 
         if (moshpitFile.getConfigurationSection("users." + playerId) != null)
-            if (moshpitFile.getString("users." + playerId + ".displayname") != playerDisplayname)
+            if (moshpitFile.getString("users." + playerId + ".displayname") != playerDisplayname) {
                 moshpitFile.set("users." + playerId + ".displayname", playerDisplayname);
+                moshpitFileManager.saveData();
+            }
     }
 }
