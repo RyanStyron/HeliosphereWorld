@@ -6,8 +6,9 @@ import mc.rysty.heliosphereworld.commands.BackCommand;
 import mc.rysty.heliosphereworld.commands.CommandDeleteWarp;
 import mc.rysty.heliosphereworld.commands.CommandSetWarp;
 import mc.rysty.heliosphereworld.commands.CommandWarp;
-import mc.rysty.heliosphereworld.hub.HubCommand;
+import mc.rysty.heliosphereworld.commands.CommandWorldToggle;
 import mc.rysty.heliosphereworld.commands.SpawnCommand;
+import mc.rysty.heliosphereworld.hub.HubCommand;
 import mc.rysty.heliosphereworld.hub.HubInventory;
 import mc.rysty.heliosphereworld.hub.HubPreventModify;
 import mc.rysty.heliosphereworld.moshpit.CommandAutoEquip;
@@ -53,6 +54,7 @@ public class HelioSphereWorld extends JavaPlugin {
 		new CommandWarp(this);
 		new CommandSetWarp(this);
 		new CommandDeleteWarp(this);
+		new CommandWorldToggle(this);
 
 		/* Moshpit-related. */
 		new CommandAutoEquip(this);

@@ -9,12 +9,6 @@ teleported_world_message: "&6&l(!)&f Warping to &b<world>&f..."
 teleported_spawn_message: "&6&l(!)&f Warping to &b<world>&f's Spawn..."
 world_command_error: "&c&l(!)&f This command cannot be executed in &b<world>&f."
 
-Spawn:
-  no_block_modify: "&c&l(!)&f You cannot modify blocks in this gamemode."
-  
-SurvivalWorld:
-  no_gamemode_change: "&c&l(!)&f You cannot modify your gamemode in this world."
-
 Moshpit:
   kit-error: "&c&l(!)&f You need &b<kills>&f more kills to use this kit!"
   kit-error-deaths: "&c&l(!)&f You need &b<deaths>&f more deaths to use this kit!"
@@ -22,33 +16,6 @@ Moshpit:
   kit-error-other: "&c&l(!)&f You need to find a secret to unlock this kit!"
   item-error: "&c&l(!)&f You need &b<kills>&f more kills to use this item!"
   combat-log-error: "&c&l(!)&f You are currently in combat!"
-  
-ClassicSMP:
-  whitelist-error: "&c&l(!)&f You must be whitelisted to join this world!"
-  world-error: "&c&l(!)&f This command can only be executed in ClassicSMP!"
-  version-error: "&c&l(!)&f You must be in the latest version to join this world."
-  pvp_toggle_enabled: "&6&l(!)&f You have enabled personal PvP in this world!"
-  pvp_toggle_disabled: "&6&l(!)&f You have disabled personal PvP in this world!"
-  damager_pvp_error: "&c&l(!)&f This player has PvP disabled in this world!"
-  player_pvp_error: "&c&l(!)&f You can not damage players in this world because you have PvP disabled!"
-
-PvPToggleCommand:
-  argument-error: "&c&l(!)&f A valid amount of arguments must be provided! Usage: /pvptoggle"
-
-HomeCommand:
-  argument-error: "&c&l(!)&f A valid amount of arguments must be provided! Usage: /home"
-  home-null-error: "&c&l(!)&f You do not have a home to teleport to! Create one using /sethome."
-  home-teleport-message: "&6&l(!)&f Teleporting home..."
-
-SetHomeCommand:
-  argument-error: "&c&l(!)&f A valid amount of arguments must be provided! Usage: /sethome"
-  home-exists-error: "&c&l(!)&f You already have an existing home. Use /deletehome before creating a new one."
-  home-created-message: "&a&l(!)&f Your home has been set to your current coordinates!"
-
-DeleteHomeCommand:
-  argument-error: "&c&l(!)&f A valid amount of arguments must be provided! Usage: /deletehome"
-  home-null-error: "&c&l(!)&f You do not have a home to delete! Create one using /sethome."
-  home-deleted-message: "&a&l(!)&f Your home has been deleted."
 
 CommandWarp:
   permission-error: "&c&l(!)&f You do not have permission to teleport to this warp."
@@ -62,3 +29,8 @@ BackCommand:
   argument-error: "&c&l(!)&f A valid amount of arguments must be provided! Usage: /back"
   back-error: "&c&l(!)&f There was no previous location stored for you to be teleported to."
   back-message: "&6&l(!)&f Teleporting to your last location..."
+
+WorldToggleCommand:
+  world-error: "&c&l(!)&f Could not find the specified world."
+  world-maintenance-enabled: "&3&l(!)&b <world>&f has temporarily been closed for maintenance."
+  world-maintenance-disabled: "&3&l(!)&b <world>&f is now open to all players."

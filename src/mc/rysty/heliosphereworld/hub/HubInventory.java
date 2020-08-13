@@ -15,6 +15,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
@@ -27,6 +28,31 @@ public class HubInventory implements Listener {
 
 	public HubInventory(HelioSphereWorld plugin) {
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
+	}
+
+	@EventHandler
+	public void onPlayerInteract(PlayerInteractEvent event) {
+		Player player = event.getPlayer();
+
+		if (player.getWorld().equals(Bukkit.getWorld("Hub"))) {
+			ItemStack item = event.getItem();
+
+			if (item == null)
+				return;
+			ItemMeta itemMeta = item.getItemMeta();
+
+			if (itemMeta == null)
+				return;
+			String itemName = itemMeta.getDisplayName();
+
+			if (itemMeta.getDisplayName() == null)
+				return;
+
+			if (itemName.equalsIgnoreCase(ChatColor.AQUA + "Main Menu"))
+				if (Bukkit.getPluginManager().isPluginEnabled("ChestCommands"))
+					Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
+							"chestcommands open examplemenu " + player.getName());
+		}
 	}
 
 	@EventHandler

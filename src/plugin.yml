@@ -13,6 +13,7 @@ commands:
   deletewarp:
     aliases: [delwarp]
   back:
+  worldtoggle:
   moshpitautoequip:
   moshpitstats:
   moshpitleaderboardkdr:
