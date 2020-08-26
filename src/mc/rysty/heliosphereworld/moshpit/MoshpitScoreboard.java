@@ -21,7 +21,6 @@ import org.bukkit.scoreboard.ScoreboardManager;
 
 import mc.rysty.heliosphereworld.HelioSphereWorld;
 import mc.rysty.heliosphereworld.moshpit.leaderboard.MoshpitLeaderboardPositions;
-import mc.rysty.heliosphereworld.moshpit.leaderboard.MoshpitLeaderboardUtils;
 import mc.rysty.heliosphereworld.utils.MessageUtils;
 import mc.rysty.heliosphereworld.utils.managers.MoshpitFileManager;
 
@@ -66,7 +65,7 @@ public class MoshpitScoreboard implements Listener {
             Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
                 @Override
                 public void run() {
-                    MoshpitLeaderboardUtils.calculateLeaderboardPositions();
+                    MoshpitLeaderboardPositions.calculateLeaderboardPositions();
                     updateMoshpitScoreboardVariables(player);
                 }
             }, 0, 20);
