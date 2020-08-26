@@ -57,6 +57,7 @@ public class HelioSphereWorld extends JavaPlugin {
 		new CommandWorldToggle(this);
 
 		/* Moshpit-related. */
+		MoshpitScoreboard.enableMoshpitScheduler();
 		new CommandAutoEquip(this);
 		new CommandMoshpitSoup(this);
 		new ListenerMoshpitSoup(this);
@@ -69,7 +70,6 @@ public class HelioSphereWorld extends JavaPlugin {
 		new CommandMoshpitLeaderboardDeaths(this);
 		new CommandMoshpitLeaderboardStreak(this);
 		new MoshpitCombatLog(this);
-		new MoshpitScoreboard(this);
 
 		/* Hub-related. */
 		new HubCommand(this);
