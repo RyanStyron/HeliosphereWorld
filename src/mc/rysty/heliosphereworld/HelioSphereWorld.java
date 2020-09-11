@@ -8,6 +8,7 @@ import mc.rysty.heliosphereworld.commands.CommandSetWarp;
 import mc.rysty.heliosphereworld.commands.CommandWarp;
 import mc.rysty.heliosphereworld.commands.CommandWorldToggle;
 import mc.rysty.heliosphereworld.commands.SpawnCommand;
+import mc.rysty.heliosphereworld.hardcoresmp.ListenerHardcoreSmpSleep;
 import mc.rysty.heliosphereworld.hub.HubCommand;
 import mc.rysty.heliosphereworld.hub.HubInventory;
 import mc.rysty.heliosphereworld.hub.HubPreventModify;
@@ -70,6 +71,9 @@ public class HelioSphereWorld extends JavaPlugin {
 		new CommandMoshpitLeaderboardDeaths(this);
 		new CommandMoshpitLeaderboardStreak(this);
 		new MoshpitCombatLog(this);
+
+		/* Hardcore SMP-related. */
+		new ListenerHardcoreSmpSleep(this);
 
 		/* Hub-related. */
 		new HubCommand(this);
