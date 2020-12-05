@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
-import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
@@ -48,23 +46,23 @@ public class HubInventory implements Listener {
 			if (itemMeta.getDisplayName() == null)
 				return;
 
-			if (itemName.equalsIgnoreCase(ChatColor.AQUA + "Main Menu"))
-				if (Bukkit.getPluginManager().isPluginEnabled("ChestCommands"))
-					Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
-							"chestcommands open examplemenu " + player.getName());
+			if (itemName.equalsIgnoreCase(ChatColor.AQUA + "Main Menu")) {
+				Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
+						"mycmd-runas player " + player.getName() + " /mainmenu");
+				player.getInventory().setHeldItemSlot(1);
+			}
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
 
-		if (Bukkit.getWorld("Hub") != null) {
-			World hub = Bukkit.getWorld("Hub");
-			Location hubSpawnLocation = hub.getSpawnLocation();
+		player.setHealth(player.getMaxHealth());
 
-			player.teleport(hubSpawnLocation);
-		}
+		if (Bukkit.getWorld("Hub") != null)
+			player.teleport(Bukkit.getWorld("Hub").getSpawnLocation());
 		setHubInventory(player);
 	}
 
