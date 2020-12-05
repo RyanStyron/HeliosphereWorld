@@ -118,29 +118,25 @@ public class MoshpitScoreboard {
         animatedMoshpitTitle(objective);
 
         Score fillerLine = objective.getScore(MessageUtils.convertChatColors("&3----------------------"));
-        Score displayName = objective.getScore(MessageUtils.convertChatColors("      " + displayNameString));
-        Score fillerLine2 = objective.getScore(MessageUtils.convertChatColors("&f&3----------------------"));
         Score kills = objective.getScore(MessageUtils.convertChatColors("&fKills&7:&b " + killsString));
         Score deaths = objective.getScore(MessageUtils.convertChatColors("&fDeaths&7:&b " + deathsString));
         Score streak = objective.getScore(MessageUtils.convertChatColors("&fCurrent Streak&7:&b " + streakString));
         Score highestStreak = objective
                 .getScore(MessageUtils.convertChatColors("&fHighest Streak&7:&b " + highestStreakString));
         Score kdr = objective.getScore(MessageUtils.convertChatColors("&fK/D Ratio&7:&b " + kdrString));
-        Score fillerLine3 = objective.getScore(MessageUtils.convertChatColors("&f&f&3----------------------"));
+        Score fillerLine2 = objective.getScore(MessageUtils.convertChatColors("&f&f&3----------------------"));
         Score combatLog = objective.getScore(MessageUtils.convertChatColors("&fCombat Log&7:&b " + combatLogString));
-        Score fillerLine4 = objective.getScore(MessageUtils.convertChatColors("&f&f&f&3----------------------"));
+        Score fillerLine3 = objective.getScore(MessageUtils.convertChatColors("&f&f&f&3----------------------"));
 
-        fillerLine.setScore(16);
-        displayName.setScore(15);
-        fillerLine2.setScore(14);
-        kills.setScore(13);
-        deaths.setScore(12);
-        streak.setScore(11);
-        highestStreak.setScore(10);
-        kdr.setScore(9);
-        fillerLine3.setScore(8);
-        combatLog.setScore(7);
-        fillerLine4.setScore(6);
+        fillerLine.setScore(8);
+        kills.setScore(7);
+        deaths.setScore(6);
+        streak.setScore(5);
+        highestStreak.setScore(4);
+        kdr.setScore(3);
+        fillerLine2.setScore(2);
+        combatLog.setScore(1);
+        fillerLine3.setScore(0);
 
         scoreboardMap.put(playerId, scoreboard);
         player.setScoreboard(scoreboard);
