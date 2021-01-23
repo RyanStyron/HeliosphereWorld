@@ -33,19 +33,24 @@ public class MoshpitCombatLog implements Listener {
 		Entity entity = event.getEntity();
 		Location location = entity.getLocation();
 		World world = location.getWorld();
-		Entity entityDamager = event.getDamager();
 
-		if (entity.getWorld().equals(Bukkit.getWorld("Moshpit")))
-			if (location.distanceSquared(world.getSpawnLocation()) > 361)
-				if (entity instanceof Player && entityDamager instanceof Player) {
+		if (entity.getWorld().equals(Bukkit.getWorld("Moshpit"))) {
+			if (location.distanceSquared(world.getSpawnLocation()) > 361) {
+				if (entity instanceof Player) {
 					Player player = (Player) entity;
-					Player damager = (Player) entityDamager;
 
 					playerInCombat.put(player, true);
-					playerInCombat.put(damager, true);
 					combatCooldown.put(player, 20);
-					combatCooldown.put(damager, 20);
+					
+					if (event.getDamager() instanceof Player) {
+						Player damager = (Player) event.getDamager();
+
+						playerInCombat.put(damager, true);
+						combatCooldown.put(damager, 20);
+					}
 				}
+			}
+		}
 	}
 
 	@EventHandler

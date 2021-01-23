@@ -29,8 +29,6 @@ public class MoshpitScoreboard {
     private static HashMap<UUID, Scoreboard> scoreboardMap = new HashMap<UUID, Scoreboard>();
     private static ScoreboardManager scoreboardManager = Bukkit.getScoreboardManager();
 
-    private static String displayNameString;
-    private static HashMap<UUID, String> lastDisplayNameMap = new HashMap<UUID, String>();
     private static String killsString;
     private static HashMap<UUID, String> lastKillsMap = new HashMap<UUID, String>();
     private static String deathsString;
@@ -58,7 +56,6 @@ public class MoshpitScoreboard {
                     } else {
                         UUID playerId = player.getUniqueId();
 
-                        lastDisplayNameMap.put(playerId, null);
                         lastKillsMap.put(playerId, null);
                         lastDeathsMap.put(playerId, null);
                         lastStreakMap.put(playerId, null);
@@ -68,7 +65,7 @@ public class MoshpitScoreboard {
                     }
                 }
             }
-        }, 0, 10);
+        }, 0, 20);
     }
 
     private static void updateMoshpitScoreboardVariables(Player player) {
@@ -81,7 +78,6 @@ public class MoshpitScoreboard {
         int kdrPosition = MoshpitLeaderboardPositions.getKdrPosition(playerDisplayName);
 
         if (world.equals(Bukkit.getWorld("Moshpit"))) {
-            displayNameString = player.getDisplayName();
             killsString = "" + (int) moshpitFile.getDouble("users." + playerId + ".kills") + " (#" + killsPosition
                     + ")";
             deathsString = "" + (int) moshpitFile.getDouble("users." + playerId + ".deaths") + " (#" + deathsPosition
@@ -141,7 +137,6 @@ public class MoshpitScoreboard {
         scoreboardMap.put(playerId, scoreboard);
         player.setScoreboard(scoreboard);
 
-        lastDisplayNameMap.put(playerId, displayNameString);
         lastKillsMap.put(playerId, killsString);
         lastDeathsMap.put(playerId, deathsString);
         lastStreakMap.put(playerId, streakString);
@@ -152,7 +147,6 @@ public class MoshpitScoreboard {
 
     private static boolean moshpitScoreboardValuesChanged(Player player) {
         UUID playerId = player.getUniqueId();
-        String lastPlayerDisplayName = lastDisplayNameMap.get(playerId);
         String lastPlayerKills = lastKillsMap.get(playerId);
         String lastPlayerDeaths = lastDeathsMap.get(playerId);
         String lastPlayerStreak = lastStreakMap.get(playerId);
@@ -160,13 +154,9 @@ public class MoshpitScoreboard {
         String lastPlayerKdr = lastKdrMap.get(playerId);
         String lastPlayerCombatLog = lastCombatLogMap.get(playerId);
 
-        if (lastPlayerDisplayName == null) {
-            lastDisplayNameMap.put(playerId, "");
-            lastPlayerDisplayName = lastDisplayNameMap.get(playerId);
-        }
         if (lastPlayerKills == null) {
             lastKillsMap.put(playerId, killsString);
-            lastPlayerKills = lastKillsMap.get(playerId);
+            lastPlayerKills = lastKillsMap.get(playerId) + "x";
         }
         if (lastPlayerDeaths == null) {
             lastDeathsMap.put(playerId, deathsString);
@@ -189,10 +179,9 @@ public class MoshpitScoreboard {
             lastPlayerCombatLog = lastCombatLogMap.get(playerId);
         }
 
-        if (!lastPlayerDisplayName.equals(displayNameString) || !lastPlayerKills.equals(killsString)
-                || !lastPlayerDeaths.equals(deathsString) || !lastPlayerStreak.equals(streakString)
-                || !lastPlayerHighestStreak.equals(highestStreakString) || !lastPlayerKdr.equals(kdrString)
-                || !lastPlayerCombatLog.equals(combatLogString))
+        if (!lastPlayerKills.equals(killsString) || !lastPlayerDeaths.equals(deathsString)
+                || !lastPlayerStreak.equals(streakString) || !lastPlayerHighestStreak.equals(highestStreakString)
+                || !lastPlayerKdr.equals(kdrString) || !lastPlayerCombatLog.equals(combatLogString))
             return true;
         return false;
     }
