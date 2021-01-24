@@ -31,45 +31,24 @@ public class ListenerMoshpitKitSelect implements Listener {
             UUID playerId = player.getUniqueId();
             double fileKills = moshpitFile.getDouble("users." + playerId + ".kills");
             double fileDeaths = moshpitFile.getDouble("users." + playerId + ".deaths");
-            double fileHighestStreak = moshpitFile.getDouble("users." + playerId + ".killstreakhighest");
             int kills = (int) fileKills;
             int deaths = (int) fileDeaths;
-            int highestStreak = (int) fileHighestStreak;
 
+            /** Placeholder cases for when requirements are implemented later. */
             if (command.startsWith("/pigman-equip")) {
-                if (kills < 50) {
-                    MessageUtils.configStringMessage(player, "Moshpit.kit-error", "<kills>", "" + (50 - kills));
-                    event.setCancelled(true);
-                }
             } else if (command.startsWith("/witch-equip")) {
-                if (kills < 120) {
-                    MessageUtils.configStringMessage(player, "Moshpit.kit-error", "<kills>", "" + (120 - kills));
-                    event.setCancelled(true);
-                }
             } else if (command.startsWith("/wither_skeleton-equip")) {
-                if (kills < 330) {
-                    MessageUtils.configStringMessage(player, "Moshpit.kit-error", "<kills>", "" + (330 - kills));
-                    event.setCancelled(true);
-                }
             } else if (command.startsWith("/vampire-equip")) {
-                if (kills < 700) {
-                    MessageUtils.configStringMessage(player, "Moshpit.kit-error", "<kills>", "" + (700 - kills));
-                    event.setCancelled(true);
-                }
             } else if (command.startsWith("/evoker-equip")) {
-                if (kills < 1550) {
-                    MessageUtils.configStringMessage(player, "Moshpit.kit-error", "<kills>", "" + (1550 - kills));
-                    event.setCancelled(true);
-                }
             } else if (command.startsWith("/explosivetrap-equip")) {
-                if (kills < 1970) {
-                    MessageUtils.configStringMessage(player, "Moshpit.kit-error", "<kills>", "" + (1970 - kills));
+                if (kills < 1200) {
+                    MessageUtils.configStringMessage(player, "Moshpit.kit-error", "<kills>", "" + (1200 - kills));
                     event.setCancelled(true);
                 }
             } else if (command.startsWith("/creeper-equip")) {
-                if (deaths < 500) {
+                if (deaths < 600) {
                     MessageUtils.configStringMessage(player, "Moshpit.kit-error-deaths", "<deaths>",
-                            "" + (500 - deaths));
+                            "" + (600 - deaths));
                     event.setCancelled(true);
                 }
             } else if (command.startsWith("/chicken-equip")) {
@@ -78,18 +57,15 @@ public class ListenerMoshpitKitSelect implements Listener {
                     event.setCancelled(true);
                 }
             } else if (command.startsWith("/horse-equip")) {
-                if (highestStreak < 15) {
-                    MessageUtils.configStringMessage(player, "Moshpit.kit-error-streak", "<streak>", "" + 15);
+            } else if (command.startsWith("/dragon-equip")) {
+                if (kills < 1200) {
+                    MessageUtils.configStringMessage(player, "Moshpit.kit-error", "<kills>", "" + (1200 - kills));
                     event.setCancelled(true);
                 }
             } else if (command.startsWith("/leapingcharm-equip")) {
-                if (kills < 1000) {
-                    MessageUtils.configStringMessage(player, "Moshpit.item-error", "<kills>", "" + (1000 - kills));
-                    event.setCancelled(true);
-                }
             } else if (command.startsWith("/pufferfish-equip")) {
-                if (kills < 2500) {
-                    MessageUtils.configStringMessage(player, "Moshpit.item-error", "<kills>", "" + (2500 - kills));
+                if (kills < 1200) {
+                    MessageUtils.configStringMessage(player, "Moshpit.item-error", "<kills>", "" + (1200 - kills));
                     event.setCancelled(true);
                 }
             }
