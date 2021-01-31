@@ -26,43 +26,41 @@ public class MoshpitScoreboard {
     private static MoshpitFileManager moshpitFileManager = HelioSphereWorld.moshpitFileManager;
     private static FileConfiguration moshpitFile = moshpitFileManager.getData();
 
-    private static HashMap<UUID, Scoreboard> scoreboardMap = new HashMap<UUID, Scoreboard>();
+    private static HashMap<Player, Scoreboard> scoreboardMap = new HashMap<Player, Scoreboard>();
     private static ScoreboardManager scoreboardManager = Bukkit.getScoreboardManager();
 
     private static String killsString;
-    private static HashMap<UUID, String> lastKillsMap = new HashMap<UUID, String>();
+    private static HashMap<Player, String> lastKillsMap = new HashMap<Player, String>();
     private static String deathsString;
-    private static HashMap<UUID, String> lastDeathsMap = new HashMap<UUID, String>();
+    private static HashMap<Player, String> lastDeathsMap = new HashMap<Player, String>();
     private static String streakString;
-    private static HashMap<UUID, String> lastStreakMap = new HashMap<UUID, String>();
+    private static HashMap<Player, String> lastStreakMap = new HashMap<Player, String>();
     private static String highestStreakString;
-    private static HashMap<UUID, String> lastHighestStreakMap = new HashMap<UUID, String>();
+    private static HashMap<Player, String> lastHighestStreakMap = new HashMap<Player, String>();
     private static String kdrString;
-    private static HashMap<UUID, String> lastKdrMap = new HashMap<UUID, String>();
+    private static HashMap<Player, String> lastKdrMap = new HashMap<Player, String>();
     private static String combatLogString;
-    private static HashMap<UUID, String> lastCombatLogMap = new HashMap<UUID, String>();
+    private static HashMap<Player, String> lastCombatLogMap = new HashMap<Player, String>();
+    private static HashMap<Player, Boolean> clearStoredValuesMap = new HashMap<Player, Boolean>();
 
     public static void enableMoshpitScheduler() {
         Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
             @Override
             public void run() {
                 for (Player player : Bukkit.getOnlinePlayers()) {
+                    if (clearStoredValuesMap.get(player) == null)
+                        clearStoredValuesMap.put(player, true);
+                    clearStoredValues(player);
+
                     if (player.getWorld() == Bukkit.getWorld("Moshpit")) {
                         if (!MoshpitCombatLog.playerInCombat.containsKey(player))
                             MoshpitCombatLog.playerInCombat.put(player, false);
+                        clearStoredValuesMap.put(player, false);
 
                         MoshpitLeaderboardPositions.calculateLeaderboardPositions();
                         updateMoshpitScoreboardVariables(player);
-                    } else {
-                        UUID playerId = player.getUniqueId();
-
-                        lastKillsMap.put(playerId, null);
-                        lastDeathsMap.put(playerId, null);
-                        lastStreakMap.put(playerId, null);
-                        lastHighestStreakMap.put(playerId, null);
-                        lastKdrMap.put(playerId, null);
-                        lastCombatLogMap.put(playerId, null);
-                    }
+                    } else
+                        clearStoredValuesMap.put(player, true);
                 }
             }
         }, 0, 20);
@@ -98,13 +96,11 @@ public class MoshpitScoreboard {
 
     @SuppressWarnings("deprecation")
     private static void updateMoshpitScoreboard(Player player) {
-        UUID playerId = player.getUniqueId();
-
-        if (!scoreboardMap.containsKey(playerId)) {
+        if (!scoreboardMap.containsKey(player)) {
             Scoreboard scoreboard = scoreboardManager.getNewScoreboard();
-            scoreboardMap.put(playerId, scoreboard);
+            scoreboardMap.put(player, scoreboard);
         }
-        Scoreboard scoreboard = scoreboardMap.get(playerId);
+        Scoreboard scoreboard = scoreboardMap.get(player);
         Objective objective = scoreboard.getObjective(DisplaySlot.SIDEBAR);
 
         if (objective != null)
@@ -134,49 +130,48 @@ public class MoshpitScoreboard {
         combatLog.setScore(1);
         fillerLine3.setScore(0);
 
-        scoreboardMap.put(playerId, scoreboard);
+        scoreboardMap.put(player, scoreboard);
         player.setScoreboard(scoreboard);
 
-        lastKillsMap.put(playerId, killsString);
-        lastDeathsMap.put(playerId, deathsString);
-        lastStreakMap.put(playerId, streakString);
-        lastHighestStreakMap.put(playerId, highestStreakString);
-        lastKdrMap.put(playerId, kdrString);
-        lastCombatLogMap.put(playerId, combatLogString);
+        lastKillsMap.put(player, killsString);
+        lastDeathsMap.put(player, deathsString);
+        lastStreakMap.put(player, streakString);
+        lastHighestStreakMap.put(player, highestStreakString);
+        lastKdrMap.put(player, kdrString);
+        lastCombatLogMap.put(player, combatLogString);
     }
 
     private static boolean moshpitScoreboardValuesChanged(Player player) {
-        UUID playerId = player.getUniqueId();
-        String lastPlayerKills = lastKillsMap.get(playerId);
-        String lastPlayerDeaths = lastDeathsMap.get(playerId);
-        String lastPlayerStreak = lastStreakMap.get(playerId);
-        String lastPlayerHighestStreak = lastHighestStreakMap.get(playerId);
-        String lastPlayerKdr = lastKdrMap.get(playerId);
-        String lastPlayerCombatLog = lastCombatLogMap.get(playerId);
+        String lastPlayerKills = lastKillsMap.get(player);
+        String lastPlayerDeaths = lastDeathsMap.get(player);
+        String lastPlayerStreak = lastStreakMap.get(player);
+        String lastPlayerHighestStreak = lastHighestStreakMap.get(player);
+        String lastPlayerKdr = lastKdrMap.get(player);
+        String lastPlayerCombatLog = lastCombatLogMap.get(player);
 
         if (lastPlayerKills == null) {
-            lastKillsMap.put(playerId, killsString);
-            lastPlayerKills = lastKillsMap.get(playerId) + "x";
+            lastKillsMap.put(player, killsString);
+            lastPlayerKills = lastKillsMap.get(player) + "x";
         }
         if (lastPlayerDeaths == null) {
-            lastDeathsMap.put(playerId, deathsString);
-            lastPlayerDeaths = lastDeathsMap.get(playerId);
+            lastDeathsMap.put(player, deathsString);
+            lastPlayerDeaths = lastDeathsMap.get(player);
         }
         if (lastPlayerStreak == null) {
-            lastStreakMap.put(playerId, streakString);
-            lastPlayerStreak = lastStreakMap.get(playerId);
+            lastStreakMap.put(player, streakString);
+            lastPlayerStreak = lastStreakMap.get(player);
         }
         if (lastPlayerHighestStreak == null) {
-            lastHighestStreakMap.put(playerId, highestStreakString);
-            lastPlayerHighestStreak = lastHighestStreakMap.get(playerId);
+            lastHighestStreakMap.put(player, highestStreakString);
+            lastPlayerHighestStreak = lastHighestStreakMap.get(player);
         }
         if (lastPlayerKdr == null) {
-            lastKdrMap.put(playerId, kdrString);
-            lastPlayerKdr = lastKdrMap.get(playerId);
+            lastKdrMap.put(player, kdrString);
+            lastPlayerKdr = lastKdrMap.get(player);
         }
         if (lastPlayerCombatLog == null) {
-            lastCombatLogMap.put(playerId, combatLogString);
-            lastPlayerCombatLog = lastCombatLogMap.get(playerId);
+            lastCombatLogMap.put(player, combatLogString);
+            lastPlayerCombatLog = lastCombatLogMap.get(player);
         }
 
         if (!lastPlayerKills.equals(killsString) || !lastPlayerDeaths.equals(deathsString)
@@ -207,5 +202,18 @@ public class MoshpitScoreboard {
                 integer++;
             }
         }, 0, 5);
+    }
+
+    private static void clearStoredValues(Player player) {
+        if (clearStoredValuesMap.get(player)) {
+            if (lastKillsMap.get(player) != null) {
+                lastKillsMap.put(player, null);
+                lastDeathsMap.put(player, null);
+                lastStreakMap.put(player, null);
+                lastHighestStreakMap.put(player, null);
+                lastKdrMap.put(player, null);
+                lastCombatLogMap.put(player, null);
+            }
+        }
     }
 }
